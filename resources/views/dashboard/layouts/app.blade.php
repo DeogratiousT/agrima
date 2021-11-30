@@ -112,7 +112,7 @@
 		</div>
 		<!--end::Scrolltop-->
 		<!--end::Main-->
-		<script>var hostUrl = "assets/";</script>
+		<script>var hostUrl = "/";</script>
 
 		<!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
@@ -125,10 +125,7 @@
 		<!--end::Page Vendors Javascript-->
 
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="{{ asset('metronic/js/widgets.js') }}"></script>
-		<script src="{{ asset('metronic/js/chat.js') }}"></script>
-		<script src="{{ asset('metronic/js/create-app.js') }}"></script>
-		<script src="{{ asset('metronic/js/upgrade-plan.js') }}"></script>
+		@stack('scripts')
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>
