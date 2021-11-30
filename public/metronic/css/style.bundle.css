@@ -47249,9 +47249,9 @@ body {
 }
 
 @media (min-width: 1400px) {
-  .sidebar-enabled .wrapper {
+  /* .sidebar-enabled .wrapper {
     padding-right: 400px;
-  }
+  } */
 
   .sidebar-enabled .explore-toggle {
     right: 400px !important;
