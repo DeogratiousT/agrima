@@ -68,7 +68,3 @@
         <!--end::Actions-->
     </form>        
 @endsection
-
-@push('scripts')
-    <script src="/metronic8/demo3/assets/js/custom/authentication/sign-in/general.js"></script>
-@endpush

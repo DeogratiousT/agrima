@@ -50,7 +50,7 @@
                 <!--begin::User info-->
                 <div class="ms-2">
                     <!--begin::Name-->
-                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder lh-1">Teddius Maingi</a>
+                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder lh-1">{{ Auth::user()->name }}</a>
                     <!--end::Name-->
                     <!--begin::Major-->
                     <span class="text-muted fw-bold d-block fs-7 lh-1">Admin</span>
@@ -80,7 +80,11 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                        <a href="#" class="menu-link px-5">Sign Out</a>
+                        <a href="{{ route('logout') }}" class="menu-link px-5" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign Out</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </div>
                     <!--end::Menu item-->
                 </div>
