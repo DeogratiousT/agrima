@@ -113,7 +113,7 @@
         <!--end::Input group-->
         <!--begin::Actions-->
         <div class="text-center">
-            <button type="submit" class="btn btn-lg btn-primary">
+            <button type="submit" class="btn btn-lg btn-primary" id="kt_button">
                 <span class="indicator-label">Submit</span>
                 <span class="indicator-progress">Please wait... 
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -124,5 +124,14 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('metronic/js/general.js') }}"></script>
+    <script>
+        // Element to indecate
+        var button = document.querySelector("#kt_button");
+
+        // Handle button click event
+        button.addEventListener("click", function() {
+            // Activate indicator
+            button.setAttribute("data-kt-indicator", "on");
+        });
+    </script>
 @endpush
