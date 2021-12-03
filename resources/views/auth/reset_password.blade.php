@@ -1,27 +1,24 @@
 @extends('dashboard.layouts.full')
 
-@section('title', 'Login')
+@section('title', 'Reset Password')
 
 @section('content')
-    <form class="form w-100" method="post" action="{{ route('login') }}">
+    <form class="form w-100" method="post" action="{{ route('password.update') }}">
         @csrf
 
         <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
-            <h1 class="text-dark mb-3">Sign In to Agrima</h1>
+            <h1 class="text-dark mb-3">Reset Password</h1>
             <!--end::Title-->
             <!-- begin::Status -->
             @include('dashboard.includes.messages')
             <!-- end::Status -->
-            <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">
-                New Here? 
-                <a href="{{ route('register') }}" class="link-primary fw-bolder">Create an Account</a>
-            </div>
-            <!--end::Link-->
         </div>
         <!--begin::Heading-->
+        <!--begin::Input-->
+        <input type="hidden" name="token" value="{{ request()->route('token') }}">
+        <!--end::Input-->
         <!--begin::Input group-->
         <div class="fv-row mb-10">
             <!--begin::Label-->
@@ -42,14 +39,28 @@
                 <!--begin::Label-->
                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
                 <!--end::Label-->
-                <!--begin::Link-->
-                <a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-                <!--end::Link-->
             </div>
             <!--end::Wrapper-->
             <!--begin::Input-->
             <input class="form-control form-control-lg form-control-solid @error('password') border border-danger @enderror" type="password" name="password" autocomplete="off" />
             @error('password')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+            <!--end::Input-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-10">
+            <!--begin::Wrapper-->
+            <div class="d-flex flex-stack mb-2">
+                <!--begin::Label-->
+                <label class="form-label fw-bolder text-dark fs-6 mb-0">Confirm Password</label>
+                <!--end::Label-->
+            </div>
+            <!--end::Wrapper-->
+            <!--begin::Input-->
+            <input class="form-control form-control-lg form-control-solid @error('password_confirmation') border border-danger @enderror" type="password" name="password_confirmation" autocomplete="off" />
+            @error('password_confirmation')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
             <!--end::Input-->
@@ -64,18 +75,6 @@
                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
             </button>
             <!--end::Submit button-->
-            {{-- <!--begin::Separator-->
-            <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
-            <!--end::Separator-->
-            <!--begin::Google link-->
-            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-            <img alt="Logo" src="/metronic8/demo3/assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Continue with Google</a>
-            <!--end::Google link-->
-            <!--begin::Google link-->
-            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-            <img alt="Logo" src="/metronic8/demo3/assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-3" />Continue with Facebook</a>
-            <!--end::Google link--> --}}
-        </div>
         <!--end::Actions-->
     </form>        
 @endsection
