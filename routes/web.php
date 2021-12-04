@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\Dashboard\CommodityController;
 use App\Http\Controllers\Dashboard\HomeController as DashboardController;
 
 /*
@@ -20,7 +22,11 @@ use App\Http\Controllers\Dashboard\HomeController as DashboardController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
-    Route::resource('users', UserController::class);
+    Route::middleware('auth')->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::resource('users', UserController::class);
+        Route::resource('categories', CategoryController::class);
+        Route::resource('commodities', CommodityController::class);
+    });
 });

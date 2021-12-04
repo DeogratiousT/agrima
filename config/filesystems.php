@@ -42,6 +42,20 @@ return [
             'visibility' => 'public',
         ],
 
+        'category_uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/categories'),
+            'url' => env('APP_URL').'/uploads/categories',
+            'visibility' => 'public',
+        ],
+
+        'commodities_uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads/commodities'),
+            'url' => env('APP_URL').'/uploads/commodities',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
