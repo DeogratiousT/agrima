@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Freshbitsweb\Laratables\Laratables;
 
 class RoleController extends Controller
 {
@@ -13,11 +16,6 @@ class RoleController extends Controller
         }
 
         $roles = Role::all()->count();
-        return view('dashboard.roles.index', ['roles'=>$roles]);
-    }
-
-    public function update()
-    {
-        
+        return view('admin.roles.index', ['roles'=>$roles]);
     }
 }

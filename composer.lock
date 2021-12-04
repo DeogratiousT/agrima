@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91239a4542df65246c0f3fc459c034bc",
+    "content-hash": "4a48afc5aa16d539e54e5e34da058295",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -596,6 +596,62 @@
                 }
             ],
             "time": "2020-12-29T14:50:06+00:00"
+        },
+        {
+            "name": "freshbitsweb/laratables",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/freshbitsweb/laratables.git",
+                "reference": "d4fcb109fed7b2c7005d4d624fe2bc4afb9b5900"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/freshbitsweb/laratables/zipball/d4fcb109fed7b2c7005d4d624fe2bc4afb9b5900",
+                "reference": "d4fcb109fed7b2c7005d4d624fe2bc4afb9b5900",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "php": "^7.3|^7.4|^8.0"
+            },
+            "require-dev": {
+                "laravel/legacy-factories": "^1.0.4",
+                "orchestra/testbench": "^6.0.0",
+                "phpunit/phpunit": "^9.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Freshbitsweb\\Laratables\\LaratablesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Freshbitsweb\\Laratables\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gaurav Makhecha",
+                    "email": "info@freshbits.in"
+                }
+            ],
+            "description": "Ajax support of DataTables for Laravel 5.5+",
+            "support": {
+                "issues": "https://github.com/freshbitsweb/laratables/issues",
+                "source": "https://github.com/freshbitsweb/laratables/tree/v2.4.1"
+            },
+            "time": "2020-12-11T11:09:21+00:00"
         },
         {
             "name": "fruitcake/laravel-cors",
