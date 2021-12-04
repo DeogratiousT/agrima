@@ -41,7 +41,7 @@ class AdminRegisterCommand extends Command
     public function handle()
     {
 
-        if (! Role::find(1)) {
+        if (! Role::where('slug','administrator')->first()) {
             $this->error('Role and Abilities definitions have not been run.
             please update the role definitions first using  php artisan roles:update command');
             return;
