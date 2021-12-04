@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\HomeController as DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,10 @@ use App\Http\Controllers\Dashboard\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-Route::put('/roles/update', [RoleController::class, 'update'])->name('roles.update');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::resource('users', UserController::class);
+});
