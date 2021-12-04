@@ -50,7 +50,7 @@
                         <!--begin::Content-->
                         <div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20">
                             <!--begin::Logo-->
-                            <a href="#" class="py-9 mb-5">
+                            <a href="{{ route('dashboard') }}" class="py-9 mb-5">
                                 <h1 class="d-flex flex-column text-dark fw-bolder my-0 fs-1">AGRIMA</h1>
                                 {{-- <img alt="Logo" src="/metronic8/demo3/assets/media/logos/logo-2.svg" class="h-60px" /> --}}
                             </a>

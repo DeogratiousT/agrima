@@ -15,3 +15,5 @@ use App\Http\Controllers\Dashboard\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::put('/roles/update', [RoleController::class, 'update'])->name('roles.update');
