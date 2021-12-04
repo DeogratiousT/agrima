@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -41,4 +42,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Checks the role of the user
+     * 
+     * @return belongsTo
+     * **/
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
+    }
+
+    /**
+     * Checks if user is in the given role
+     * 
+     * @param array of roleslugs
+     * 
+    */
+    public function inRole(Array $roleSlugs)
+    {
+        foreach ($roleSlugs as $roleSlug) {
+            if ($roleSlug == $this->role->slug) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

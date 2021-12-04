@@ -53,7 +53,7 @@
                     <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder lh-1">{{ Auth::user()->name }}</a>
                     <!--end::Name-->
                     <!--begin::Major-->
-                    <span class="text-muted fw-bold d-block fs-7 lh-1">Admin</span>
+                    <span class="text-muted fw-bold d-block fs-7 lh-1">{{ Auth::user()->role->name }}</span>
                     <!--end::Major-->
                 </div>
                 <!--end::User info-->
