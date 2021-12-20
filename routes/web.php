@@ -36,12 +36,14 @@ Route::get('/help', [HomeOtherController::class, 'help'])->name('help');
 
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('dashboard')->group(function () {
     Route::middleware('auth')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
         Route::resource('users', UserController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('commodities', CommodityController::class);
+
+        Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
     });
 });

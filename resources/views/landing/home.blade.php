@@ -115,7 +115,7 @@
 					<div class="section-title">	
 						<h3><span class="orange-text">Product </span> Categories </h3>
 						<p>Search products based on product categories like Fruits, Grains and Vegetables</p>
-						<a href="{{ route('shop') }}" class="btn btn-primary p-2 m-2">View All Products</a>
+						<a href="{{ route('shop') }}" class="btn btn-primary btn-lg mt-3">View All Products</a>
 					</div>
 				</div>
 			</div>
