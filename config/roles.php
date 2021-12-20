@@ -8,6 +8,12 @@ return [
                 'manage' => true,
             ],
         ],
+        'Seller' => [
+            'name' => 'Seller',
+            'abilities' => [
+                'sell' => true,
+            ],
+        ],
         'Buyer' => [
             'name' => 'Buyer',
             'abilities' => [
