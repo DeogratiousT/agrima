@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\HomeOtherController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CommodityController;
@@ -20,6 +21,17 @@ use App\Http\Controllers\Dashboard\HomeController as DashboardController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
+Route::get('/insights', [HomeController::class, 'insights'])->name('insights');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+
+Route::get('/terms-and-conditions', [HomeOtherController::class, 'tcs'])->name('terms.conds');
+Route::get('/faqs', [HomeOtherController::class, 'faqs'])->name('faqs');
+Route::get('/privacy-policy', [HomeOtherController::class, 'ppolicy'])->name('privacy.policy');
+Route::get('/help', [HomeOtherController::class, 'help'])->name('help');
 
 Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {
