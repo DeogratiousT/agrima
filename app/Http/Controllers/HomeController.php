@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Products\Category;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('landing.home');
+        $categories = Category::all();
+
+        return view('landing.home', ['categories'=>$categories]);
     }
 
     public function about()
@@ -18,7 +21,8 @@ class HomeController extends Controller
 
     public function shop()
     {
-        return view('landing.shop');
+        $categories = Category::all();
+        return view('landing.shop', ['categories'=>$categories]);
     }
 
     public function cart()
