@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeOtherController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -32,6 +33,8 @@ Route::get('/terms-and-conditions', [HomeOtherController::class, 'tcs'])->name('
 Route::get('/faqs', [HomeOtherController::class, 'faqs'])->name('faqs');
 Route::get('/privacy-policy', [HomeOtherController::class, 'ppolicy'])->name('privacy.policy');
 Route::get('/help', [HomeOtherController::class, 'help'])->name('help');
+
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {

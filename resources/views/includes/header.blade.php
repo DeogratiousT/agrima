@@ -35,6 +35,10 @@
                                     @auth
                                         <a class="shopping-cart" href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i></a>
 
+                                        @if (Auth::user()->inRole(['administrator']))
+                                            <a class="dashboard" href="{{ route('dashboard') }}"><i class="fas fa-th"></i></a>
+                                        @endif
+
                                         <a class="user" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
