@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ContactController;
@@ -35,6 +36,11 @@ Route::get('/privacy-policy', [HomeOtherController::class, 'ppolicy'])->name('pr
 Route::get('/help', [HomeOtherController::class, 'help'])->name('help');
 
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/increment-quantity/{commodity}', [CartController::class, 'incrementQty'])->name('cart.increment');
+Route::get('/decrement-quantity/{commodity}', [CartController::class, 'decrementQty'])->name('cart.decrement');
+Route::get('/remove/{commodity}', [CartController::class, 'remove'])->name('cart.remove');
 
 Route::prefix('dashboard')->group(function () {
     Route::middleware('auth')->group(function () {
