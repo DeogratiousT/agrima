@@ -112,7 +112,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:categories,name',
+            'name' => 'required',
             'cover_image' => 'nullable|image',
         ]);
 
