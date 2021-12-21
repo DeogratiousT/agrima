@@ -77,11 +77,11 @@
 													</a>
 												</td>
 											</tr>
-											<tr>
-												<td colspan="5"><strong>SUB TOTAL</strong></td>
-												<td><strong>{{ $total }}</strong></td>
-											</tr>
 										@endforeach
+										<tr>
+											<td colspan="5"><strong>SUB TOTAL</strong></td>
+											<td><strong>{{ $total }}</strong></td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
