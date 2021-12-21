@@ -104,7 +104,7 @@
             <label class="form-check form-check-custom form-check-solid form-check-inline">
                 <input class="form-check-input @error('toc') border border-danger @enderror" type="checkbox" name="toc" value="1"/>
                 <span class="form-check-label fw-bold text-gray-700 fs-6">I Agree 
-                <a href="#" class="ms-1 link-primary">Terms and conditions</a>.</span>
+                <a href="{{ route('terms.conds') }}" class="ms-1 link-primary">Terms and conditions</a>.</span>
             </label>
             @error('toc')
                 <div class="text-danger">{{ $message }}</div>
