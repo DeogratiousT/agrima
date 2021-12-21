@@ -126,7 +126,7 @@
 						@foreach ($categories as $category)
 							<div class="single-logo-item">
 								<div class="card" style="width: 18rem;">
-									<img class="card-img-top" src="{{ asset('uploads/categories/category-images/' . $category->cover_image) }}" alt="Category">
+									<img class="card-img-top" src="{{ asset('uploads/categories/category-images/' . $category->cover_image) }}" height="175rem" width="100%" alt="Category">
 									<div class="card-body">
 									<h5 class="card-title">{{ $category->name }}</h5>
 									</div>
