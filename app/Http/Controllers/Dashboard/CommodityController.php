@@ -81,7 +81,7 @@ class CommodityController extends Controller
             $fileNameToStore = $filename.'_'.Str::random('5').'.'.$extension;
             //Upload Image
             // $path = $validated['cover_image']->storeAs('featured-images', $fileNameToStore, 'public_uploads');
-            Storage::disk('commodities_uploads')->putFileAs('commmodity-images', new File($validated['cover_image']), $fileNameToStore, );
+            Storage::disk('s3')->putFileAs('commodity-images', new File($validated['cover_image']), $fileNameToStore);
 
             $commodity->cover_image = $fileNameToStore;
 
@@ -143,6 +143,14 @@ class CommodityController extends Controller
 
         //Handle File upload
         if(isset($validated['cover_image'])){
+
+            // Delete Current Cover Image
+            $filetodelete = Storage::disk('s3')->path('commodity-images/' . $commodity->cover_image);
+            
+            if (Storage::disk('s3')->exists($filetodelete)) {
+                Storage::disk('s3')->delete($filetodelete);
+            }
+
             //Get File Name with the Extension
             $filenameWithExt = $validated['cover_image']->getClientOriginalName();
             //Get just File name
@@ -153,7 +161,7 @@ class CommodityController extends Controller
             $fileNameToStore = $filename.'_'.Str::random('5').'.'.$extension;
             //Upload Image
             // $path = $validated['cover_image']->storeAs('featured-images', $fileNameToStore, 'public_uploads');
-            Storage::disk('commodities_uploads')->putFileAs('commmodity-images', new File($validated['cover_image']), $fileNameToStore, );
+            Storage::disk('s3')->putFileAs('commodity-images', new File($validated['cover_image']), $fileNameToStore, );
 
             $commodity->cover_image = $fileNameToStore;
 
@@ -172,6 +180,15 @@ class CommodityController extends Controller
      */
     public function destroy(Commodity $commodity)
     {
-        //
+        $filetodelete = Storage::disk('s3')->path('commodity-images/' . $commodity->cover_image);
+
+        $commodity->delete();
+
+        // Delete Current Cover Image
+        if (Storage::disk('s3')->exists($filetodelete)) {
+            Storage::disk('s3')->delete($filetodelete);
+        }
+
+        return redirect()->route('commodities.index')->with('success','Commodity Deleted Successfully');
     }
 }
