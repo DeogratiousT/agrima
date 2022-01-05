@@ -36,7 +36,7 @@
                         <div class="col-lg-4 col-md-6 text-center {{ $category->name }}">
                             <div class="single-product-item">
                                 <div class="product-image">
-                                    <a href="#"><img src="{{ asset('uploads/commodities/commmodity-images/' . $commodity->cover_image) }}" height="175rem" width="100%" alt=""></a>
+                                    <a href="#"><img src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $commodity->cover_image }}" height="175rem" width="100%" alt=""></a>
                                 </div>
                                 <h3>{{ $commodity->name }}</h3>
                                 <p class="product-price"><span>Per Unit</span> {{ $commodity->price }} </p>

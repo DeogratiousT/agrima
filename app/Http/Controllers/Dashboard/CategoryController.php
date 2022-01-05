@@ -69,7 +69,7 @@ class CategoryController extends Controller
             $fileNameToStore = $filename.'_'.Str::random('5').'.'.$extension;
             //Upload Image
             // $path = $validated['cover_image']->storeAs('featured-images', $fileNameToStore, 'public_uploads');
-            Storage::disk('category_uploads')->putFileAs('category-images', new File($validated['cover_image']), $fileNameToStore);
+            Storage::disk('s3')->putFileAs('category-images', new File($validated['cover_image']), $fileNameToStore);
 
             $category->cover_image = $fileNameToStore;
 
@@ -120,6 +120,15 @@ class CategoryController extends Controller
 
         //Handle File upload
         if(isset($validated['cover_image'])){
+
+            // Delete Current Cover Image
+            $filetodelete = Storage::disk('s3')->path('category-images/' . $category->cover_image);
+
+            if (Storage::disk('s3')->exists($filetodelete)) {
+                Storage::disk('s3')->delete($filetodelete);
+            }
+
+
             //Get File Name with the Extension
             $filenameWithExt = $validated['cover_image']->getClientOriginalName();
             //Get just File name
@@ -130,7 +139,7 @@ class CategoryController extends Controller
             $fileNameToStore = $filename.'_'.Str::random('5').'.'.$extension;
             //Upload Image
             // $path = $validated['cover_image']->storeAs('featured-images', $fileNameToStore, 'public_uploads');
-            Storage::disk('category_uploads')->putFileAs('category-images', new File($validated['cover_image']), $fileNameToStore);
+            Storage::disk('s3')->putFileAs('category-images', new File($validated['cover_image']), $fileNameToStore);
 
             $category->cover_image = $fileNameToStore;
 
@@ -149,6 +158,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $filetodelete = Storage::disk('s3')->path('category-images/' . $category->cover_image);
+
+        $category->delete();
+
+        // Delete Current Cover Image
+        if (Storage::disk('s3')->exists($filetodelete)) {
+            Storage::disk('s3')->delete($filetodelete);
+        }
+
+        return redirect()->route('categories.index')->with('success','Category Deleted Successfully');
     }
 }
