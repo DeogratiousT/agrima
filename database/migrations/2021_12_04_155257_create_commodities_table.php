@@ -17,12 +17,14 @@ class CreateCommoditiesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('sub_category_id');
             $table->integer('quantity');
             $table->integer('price');
             $table->boolean('in_stock')->default(1);
             $table->mediumText('cover_image');
             $table->timestamps();
+
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
         });
     }
 

@@ -127,6 +127,20 @@
 		<!--begin::Page Custom Javascript(used by this page)-->
 		@stack('scripts')
 		<!--end::Page Custom Javascript-->
+
+		<!-- begin::Indicator -->
+		<script>
+			// Element to indecate
+			var button = document.querySelector("#kt_button");
+	
+			// Handle button click event
+			button.addEventListener("click", function() {
+				// Activate indicator
+				button.setAttribute("data-kt-indicator", "on");
+			});
+		</script>
+		<!-- end::Indicator -->
+
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

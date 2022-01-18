@@ -9,6 +9,11 @@ class CommoditiesLaratables
         return ['slug','in_stock'];
     }
     
+    public static function laratablesCustomCover($commodity)
+    {
+        return view('admin.commodities.index_cover',['commodity'=>$commodity])->render();
+    }
+
     public static function laratablesCustomAction($commodity)
     {
         return view('admin.commodities.index_action',['commodity'=>$commodity])->render();

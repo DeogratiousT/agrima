@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeOtherController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CommodityController;
+use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\HomeController as DashboardController;
 
 /*
@@ -48,6 +49,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
         Route::resource('users', UserController::class);
         Route::resource('categories', CategoryController::class);
+        Route::resource('sub-categories', SubCategoryController::class);
         Route::resource('commodities', CommodityController::class);
 
         Route::get('/contact/index', [ContactController::class, 'index'])->name('contact.index');
