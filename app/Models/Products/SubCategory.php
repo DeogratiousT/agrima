@@ -7,11 +7,11 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Commodity extends Model
+class SubCategory extends Model
 {
     use HasFactory, HasSlug;
     
-    protected $fillable = ['name','slug','sub_category_id','quantity','price','cover_image','in_stock'];
+    protected $fillable = ['name','slug', 'category_id', 'cover_image'];
 
     /**
     * Get the options for generating the slug.
@@ -33,8 +33,13 @@ class Commodity extends Model
         return 'slug';
     }
 
-    public function subCategory()
+    public function commodities()
     {
-        return $this->belongsTo('App\Models\Products\SubCategory', 'sub_category_id');
+        return $this->hasMany('App\Models\Products\Commodity', 'sub_category_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Products\Category', 'category_id');
     }
 }

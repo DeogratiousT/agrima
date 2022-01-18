@@ -6,16 +6,16 @@ class CategoriesLaratables
 {    
     public static function laratablesAdditionalColumns()
     {
-        return ['slug'];
+        return ['slug', 'cover_image'];
     }
     
+    public static function laratablesCustomCover($category)
+    {
+        return view('admin.categories.index_cover',['category'=>$category])->render();
+    }
+
     public static function laratablesCustomAction($category)
     {
         return view('admin.categories.index_action',['category'=>$category])->render();
     }
-
-    // public static function laratablesSearchRoleName($query, $searchValue)
-    // {
-    //     return $query->orWhere('name', 'like', '%'. $searchValue. '%');
-    // }
 }

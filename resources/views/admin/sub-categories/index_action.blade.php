@@ -1,4 +1,4 @@
-<a href="{{ route('categories.edit',$category) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-placement="bottom" title="Edit Category">
+<a href="{{ route('sub-categories.edit',$subCategory) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-placement="bottom" title="Edit Sub Category">
     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
     <span class="svg-icon svg-icon-muted svg-icon-2x">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -10,8 +10,8 @@
     <!--end::Svg Icon-->
 </a>
 
-<button  type="button" class="action-icon" style="background: transparent; border: none" data-bs-toggle="modal" data-bs-target="#delete-category-{{ $category->id }}-modal">
-    <i data-toggle="tooltip" data-placement="bottom" title="Delete Category">
+<button  type="button" class="action-icon" style="background: transparent; border: none" data-bs-toggle="modal" data-bs-target="#delete-sub-category-{{ $subCategory->id }}-modal">
+    <i data-toggle="tooltip" data-placement="bottom" title="Delete Sub Category">
         <!--begin::Svg Icon | path: assets/media/icons/duotune/general/gen027.svg-->
         <span class="svg-icon svg-icon-danger svg-icon-2x">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -25,22 +25,22 @@
 </button> 
 
 <!-- Delete Modal -->
-<div id="delete-category-{{ $category->id }}-modal" class="modal bs-example-modal-fs fade" tabindex="-1" role="dialog" aria-labelledby="fsModalLabel" aria-hidden="true">
+<div id="delete-sub-category-{{ $subCategory->id }}-modal" class="modal bs-example-modal-fs fade" tabindex="-1" role="dialog" aria-labelledby="fsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete {{ $category->name }}</h5>
+                <h5 class="modal-title">Delete {{ $subCategory->name }}</h5>
                 <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-10">
-                        <p class="text-warning">Deleting this Category deletes its associations too!</p>
-                        <p>Are you sure that you want to delete this category?</p>
+                        <p class="text-warning">Deleting this Sub Category deletes its associations too!</p>
+                        <p>Are you sure that you want to delete this sub category?</p>
 
                         <div class="float-right">
-                            <button class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-category-{{ $category->id }}-form').submit();">Delete Category</button>
-                            <form id="delete-category-{{ $category->id }}-form" action="{{ route('categories.destroy', $category) }}" method="post">
+                            <button class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-sub-category-{{ $subCategory->id }}-form').submit();">Delete Sub Category</button>
+                            <form id="delete-sub-category-{{ $subCategory->id }}-form" action="{{ route('sub-categories.destroy', $subCategory) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                             </form>

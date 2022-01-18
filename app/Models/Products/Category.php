@@ -33,8 +33,20 @@ class Category extends Model
         return 'slug';
     }
 
+    public function subCategories()
+    {
+        return $this->hasMany('App\Models\Products\SubCategory', 'category_id');
+    }
+
     public function commodities()
     {
-        return $this->hasMany('App\Models\Products\Commodity');
+        return $this->hasManyThrough(
+            'App\Models\Products\Commodity',
+            'App\Models\Products\SubCategory',
+            'category_id', // Foreign key on the subcategories table...
+            'sub_category_id', // Foreign key on the commodities table...
+            'id', // Local key on the category table...
+            'id' // Local key on the subcategories table...
+        );
     }
 }

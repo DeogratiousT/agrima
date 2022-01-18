@@ -35,7 +35,9 @@
                         <thead>
                             <tr class="fw-bolder fs-6 text-gray-800 px-7">
                                 <th>Name</th>
+                                <th>Image</th>
                                 <th>Category</th>
+                                <th>Sub Category</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Status</th>
@@ -59,7 +61,9 @@
                 ajax: "{{ route('commodities.index') }}",
                 columns: [                
                         { name: 'name' },
-                        { name: 'category.name' , orderable:false },
+                        { name: 'cover' },
+                        { name: 'subCategory.category.name' , orderable:false },
+                        { name: 'subCategory.name' , orderable:false },
                         { name: 'quantity' },
                         { name: 'price' },
                         { name: 'state' },
