@@ -6,7 +6,19 @@ class CommoditiesLaratables
 {    
     public static function laratablesAdditionalColumns()
     {
-        return ['slug','in_stock'];
+        return ['slug','in_stock', 'cover_image'];
+    }
+
+    public static function laratablesSubCategoryRelationQuery()
+    {
+        return function ($query) {
+            $query->with('category');
+        };
+    }
+
+    public static function laratablesCustomCategory($commodity)
+    {
+        return $commodity->subCategory->category->name;
     }
     
     public static function laratablesCustomCover($commodity)
