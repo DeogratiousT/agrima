@@ -27,18 +27,34 @@
                 @endif
             </div>
 
-            <div class="form-group mb-7">
-                <label class="fs-6 fw-bold mb-2" for="category_id">Category</label>
-                <select class="form-control {{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category_id" name="category_id" required>
-                    @foreach ($categories as $category)
-                        <option @if($category->id == $commodity->category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('category_id'))
-                    <span class="invalid-feedback" role="alert">
-                        {{ $errors->first('category_id') }}
-                    </span>
-                @endif
+            <div class="row mb-7">    
+                <div class="form-group col-md-6">
+                    <label class="fs-6 fw-bold mb-2" for="category_id">Category</label>
+                    <select class="form-control {{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category_id" name="category_id" required>
+                        @foreach ($categories as $category)
+                            <option @if($category->id == $commodity->subCategory->category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('category_id'))
+                        <span class="invalid-feedback" role="alert">
+                            {{ $errors->first('category_id') }}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="fs-6 fw-bold mb-2" for="sub_category_id">Sub Category</label>
+                    <select class="form-control {{ $errors->has('sub_category_id') ? ' is-invalid' : '' }}" id="sub_category_id" name="sub_category_id" required>
+                        @foreach ($subCategories as $subCategory)
+                            <option @if($subCategory->id == $commodity->subCategory->category->id) selected @endif value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('sub_category_id'))
+                        <span class="invalid-feedback" role="alert">
+                            {{ $errors->first('sub_category_id') }}
+                        </span>
+                    @endif
+                </div>
             </div>
 
             <div class="row mb-7">

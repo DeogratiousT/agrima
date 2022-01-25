@@ -62,7 +62,7 @@
                 columns: [                
                         { name: 'name' },
                         { name: 'cover' },
-                        { name: 'subCategory.category.name' , orderable:false },
+                        { name: 'category' , orderable:false, searchable: false },
                         { name: 'subCategory.name' , orderable:false },
                         { name: 'quantity' },
                         { name: 'price' },
