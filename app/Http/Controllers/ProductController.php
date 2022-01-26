@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products\Category;
+use App\Models\Products\Commodity;
+use App\Models\Products\SubCategory;
 
 class ProductController extends Controller
 {
@@ -15,19 +17,19 @@ class ProductController extends Controller
 
     public function category($slug)
     {
-        $categories = Category::all();
-        return view('landing.products.category', ['categories'=>$categories]);
+        $category = Category::where('slug',$slug)->first();
+        return view('landing.products.category', ['category'=>$category]);
     }
 
     public function subCategory($slug)
     {
-        $categories = Category::all();
-        return view('landing.products.sub_category', ['categories'=>$categories]);
+        $subCategory = SubCategory::where('slug',$slug)->first();
+        return view('landing.products.sub_category', ['subCategory'=>$subCategory]);
     }
 
     public function commodity($slug)
     {
-        $categories = Category::all();
-        return view('landing.products.commodity', ['categories'=>$categories]);
+        $commodity = Commodity::where('slug',$slug)->first();
+        return view('landing.products.commodity', ['commodity'=>$commodity]);
     }
 }

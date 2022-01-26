@@ -33,17 +33,17 @@
                 @foreach ($categories as $category)
                     @if (count($category->subCategories) > 0)
                         <div id="{{ $category->id}}" class="tabcontent">
-                            <h4 class="mb-0"><a href="{{ route('category', $category) }}">{{ $category->name }}</a></h4>                            
+                            <h4 class="mb-0"><a href="{{ route('category', $category) }}" class="text-dark tabcontent-link">{{ $category->name }}</a></h4>                            
                             <div class="card-columns">
                                 @foreach ($category->subCategories as $subCategory)
                                     @if (count($subCategory->commodities) > 0)
                                         <div class="card pr-card">
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <a href="{{ route('sub-category', $subCategory) }}"><u>{{ $subCategory->name }}</u></a>
+                                                    <a href="{{ route('sub-category', $subCategory) }}" class="text-dark tabcontent-link"><u>{{ $subCategory->name }}</u></a>
                                                 </h5>
                                                 @foreach ($subCategory->commodities as $commodity)
-                                                    <a href="{{ route('commodity', $commodity) }}" class="m-0 p-0">{{ $commodity->name }}</a> <br>
+                                                    <a href="{{ route('commodity', $commodity) }}" class="m-0 p-0 text-dark tabcontent-link">{{ $commodity->name }}</a> <br>
                                                 @endforeach
                                             </div>
                                         </div>
