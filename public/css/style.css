@@ -47,6 +47,10 @@
     display: none;
     overflow-y: auto;
   }
+
+  .tabcontent-link:hover {
+    color: #F28123 !important;
+  }
   
   /* Clear floats after the tab */
   .clearfix::after {
