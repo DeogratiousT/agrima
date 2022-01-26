@@ -1,4 +1,4 @@
-<a href="{{ route('categories.edit',$category) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-placement="bottom" title="Edit Category">
+<a href="{{ route('dashboard.categories.edit',$category) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-placement="bottom" title="Edit Category">
     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
     <span class="svg-icon svg-icon-muted svg-icon-2x">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -40,7 +40,7 @@
 
                         <div class="float-right">
                             <button class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-category-{{ $category->id }}-form').submit();">Delete Category</button>
-                            <form id="delete-category-{{ $category->id }}-form" action="{{ route('categories.destroy', $category) }}" method="post">
+                            <form id="delete-category-{{ $category->id }}-form" action="{{ route('dashboard.categories.destroy', $category) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                             </form>

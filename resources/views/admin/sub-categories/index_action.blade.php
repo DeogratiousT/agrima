@@ -1,4 +1,4 @@
-<a href="{{ route('sub-categories.edit',$subCategory) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-placement="bottom" title="Edit Sub Category">
+<a href="{{ route('dashboard.sub-categories.edit',$subCategory) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" data-bs-toggle="tooltip" data-placement="bottom" title="Edit Sub Category">
     <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
     <span class="svg-icon svg-icon-muted svg-icon-2x">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -40,7 +40,7 @@
 
                         <div class="float-right">
                             <button class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-sub-category-{{ $subCategory->id }}-form').submit();">Delete Sub Category</button>
-                            <form id="delete-sub-category-{{ $subCategory->id }}-form" action="{{ route('sub-categories.destroy', $subCategory) }}" method="post">
+                            <form id="delete-sub-category-{{ $subCategory->id }}-form" action="{{ route('dashboard.sub-categories.destroy', $subCategory) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                             </form>
