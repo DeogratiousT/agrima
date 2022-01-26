@@ -13,7 +13,7 @@
         <!--end::Header-->
         <!--begin::Body-->
         <div class="card-body py-3">
-        <form action="{{ route('sub-categories.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dashboard.sub-categories.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group mb-7">

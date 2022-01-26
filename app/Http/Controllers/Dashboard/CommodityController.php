@@ -92,7 +92,7 @@ class CommodityController extends Controller
 
         $commodity->save();
 
-        return redirect()->route('commodities.index')->with('success','Commodity Added Successfully');
+        return redirect()->route('dashboard.commodities.index')->with('success','Commodity Added Successfully');
     }
 
     /**
@@ -131,6 +131,7 @@ class CommodityController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'required|exists:sub_categories,id',
             'quantity' => 'required|integer',
             'price' => 'required|integer',
             'cover_image' => 'nullable|image',
@@ -142,6 +143,7 @@ class CommodityController extends Controller
                 'category_id' => $validated['category_id'],
                 'quantity' => $validated['quantity'],
                 'price' => $validated['price'],
+                'sub_category_id' => $validated['sub_category_id'],
             ]
         );
 
@@ -173,7 +175,7 @@ class CommodityController extends Controller
 
         $commodity->save();
 
-        return redirect()->route('commodities.index')->with('success','Commodity Updated Successfully');
+        return redirect()->route('dashboard.commodities.index')->with('success','Commodity Updated Successfully');
     }
 
     /**
@@ -193,6 +195,6 @@ class CommodityController extends Controller
             Storage::disk('s3')->delete($filetodelete);
         }
 
-        return redirect()->route('commodities.index')->with('success','Commodity Deleted Successfully');
+        return redirect()->route('dashboard.commodities.index')->with('success','Commodity Deleted Successfully');
     }
 }

@@ -68,7 +68,7 @@
                 <!-- end::Menu Item -->
                 <!-- begin::Menu Item -->
                 <div class="menu-item">
-                    <a class="menu-link active" href="{{ route('categories.index') }}">
+                    <a class="menu-link active" href="{{ route('dashboard.categories.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr001.svg-->
                             <span class="svg-icon svg-icon-5">
@@ -85,7 +85,7 @@
                 <!-- end::Menu Item -->
                 <!-- begin::Menu Item -->
                 <div class="menu-item">
-                    <a class="menu-link active" href="{{ route('sub-categories.index') }}">
+                    <a class="menu-link active" href="{{ route('dashboard.sub-categories.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr001.svg-->
                             <span class="svg-icon svg-icon-5">
@@ -102,7 +102,7 @@
                 <!-- end::Menu Item -->
                 <!-- begin::Menu Item -->
                 <div class="menu-item">
-                    <a class="menu-link active" href="{{ route('commodities.index') }}">
+                    <a class="menu-link active" href="{{ route('dashboard.commodities.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr001.svg-->
                             <span class="svg-icon svg-icon-5">
