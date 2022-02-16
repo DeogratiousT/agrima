@@ -6,7 +6,7 @@ class CommoditiesLaratables
 {    
     public static function laratablesAdditionalColumns()
     {
-        return ['slug','in_stock'];
+        return ['slug', 'in_stock', 'cover_image'];
     }
     
     public static function laratablesCustomCover($commodity)

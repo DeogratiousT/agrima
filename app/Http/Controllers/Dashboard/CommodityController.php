@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Products\Category;
 use App\Models\Products\Commodity;
 use App\Http\Controllers\Controller;
+use App\Models\Products\SubCategory;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Support\Facades\Storage;
 use App\Laratables\CommoditiesLaratables;
@@ -39,7 +40,8 @@ class CommodityController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.commodities.create', ['categories'=>$categories]);
+        $subCategories = SubCategory::all();
+        return view('admin.commodities.create', ['categories'=>$categories, 'subCategories'=>$subCategories]);
     }
 
     /**
@@ -52,7 +54,7 @@ class CommodityController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:commodities,name',
-            'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'required|exists:sub_categories,id',
             'quantity' => 'required|integer',
             'price' => 'required|integer',
             'cover_image' => 'required|image',
@@ -63,7 +65,7 @@ class CommodityController extends Controller
                 'name' => $validated['name'],
             ],
             [
-                'category_id' => $validated['category_id'],
+                'sub_category_id' => $validated['sub_category_id'],
                 'quantity' => $validated['quantity'],
                 'price' => $validated['price'],
             ]
@@ -126,7 +128,7 @@ class CommodityController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'required|exists:sub_categories,id',
             'quantity' => 'required|integer',
             'price' => 'required|integer',
             'cover_image' => 'nullable|image',
@@ -135,7 +137,7 @@ class CommodityController extends Controller
         $commodity->update(
             [
                 'name' => $validated['name'],
-                'category_id' => $validated['category_id'],
+                'sub_category_id' => $validated['sub_category_id'],
                 'quantity' => $validated['quantity'],
                 'price' => $validated['price'],
             ]
