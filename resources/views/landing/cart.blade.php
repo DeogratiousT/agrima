@@ -46,13 +46,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										@php
-											$total = 0;
-										@endphp
-										@foreach ((array) session('cart') as $slug => $details)
-											@php
-												$total += $details['price'] * $details['quantity'];
-											@endphp
+										@foreach ($items as $slug => $details)
 											<tr class="table-body-row">
 												<td class="product-image">
 													<img src="{{ asset('uploads/commodities/commmodity-images/'. $details['cover_image']) }}" alt="">
