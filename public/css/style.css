@@ -1,0 +1,65 @@
+.pr {
+    height: 400px;
+    width: 100%;
+}
+/* Style the tab */
+.tab {
+    float: left;
+    border-radius: 0.75rem 0 0 0.75rem;
+    border-right: 1px solid #ddd;
+    background-color: #eee;
+    width: 30%;
+    height: inherit;
+    padding: 0.5rem;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 17px;
+  }
+  
+  /* Change color of buttons on hover */
+  .tab button:hover {
+    color: #F28123;
+  }
+  
+  /* Create an active/current "tab button" class */
+  .tab button.active {
+    color: #F28123;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    float: left;
+    background-color: #eee;
+    padding: 1rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    width: 70%;
+    height: inherit; 
+    display: none;
+    overflow-y: auto;
+  }
+
+  .tabcontent-link:hover {
+    color: #F28123 !important;
+  }
+  
+  /* Clear floats after the tab */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .pr-card {
+    background-color: #eee; 
+    border: 0px;
+  }

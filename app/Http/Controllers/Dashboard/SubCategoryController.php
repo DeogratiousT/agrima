@@ -85,7 +85,7 @@ class SubCategorycontroller extends Controller
 
         $subCategory->save();
 
-        return redirect()->route('sub-categories.index')->with('success','Sub-Category Added Successfully');
+        return redirect()->route('dashboard.sub-categories.index')->with('success','Sub-Category Added Successfully');
     }
 
     /**
@@ -159,7 +159,7 @@ class SubCategorycontroller extends Controller
 
         $subCategory->save();
 
-        return redirect()->route('sub-categories.index')->with('success','Sub-Category Added Successfully');
+        return redirect()->route('dashboard.sub-categories.index')->with('success','Sub-Category Added Successfully');
     }
 
     /**
@@ -179,6 +179,6 @@ class SubCategorycontroller extends Controller
             Storage::disk('s3')->delete($filetodelete);
         }
 
-        return redirect()->route('sub-categories.index')->with('success','Sub-Category Deleted Successfully');
+        return redirect()->route('dashboard.sub-categories.index')->with('success','Sub-Category Deleted Successfully');
     }
 }

@@ -15,7 +15,7 @@
                 <span class="text-muted mt-1 fw-bold fs-7">{{ $categories }} Categories</span>
             </h3>
             <div class="card-toolbar">
-                <a href="{{ route('categories.create') }}" class="btn btn-sm btn-light btn-active-primary">
+                <a href="{{ route('dashboard.categories.create') }}" class="btn btn-sm btn-light btn-active-primary">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                     <span class="svg-icon svg-icon-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -54,7 +54,7 @@
         $("#categories-laratable").DataTable({
             serverSide: true,
             processing: true,
-            ajax: "{{ route('categories.index') }}",
+            ajax: "{{ route('dashboard.categories.index') }}",
             columns: [
                     { name: 'name' },              
                     { name: 'cover' , orderable: false, searchable: false },
