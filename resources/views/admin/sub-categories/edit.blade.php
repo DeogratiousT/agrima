@@ -13,7 +13,7 @@
         <!--end::Header-->
         <!--begin::Body-->
         <div class="card-body py-3">
-        <form action="{{ route('sub-categories.update', $subCategory) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dashboard.sub-categories.update', $subCategory) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 

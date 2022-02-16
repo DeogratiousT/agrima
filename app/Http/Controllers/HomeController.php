@@ -20,12 +20,6 @@ class HomeController extends Controller
         return view('landing.about');
     }
 
-    public function shop()
-    {
-        $categories = Category::all();
-        return view('landing.shop', ['categories'=>$categories]);
-    }
-
     public function cart()
     {
         $cart = new Cart;

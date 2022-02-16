@@ -78,7 +78,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('categories.index')->with('success','Category Added Successfully');
+        return redirect()->route('dashboard.categories.index')->with('success','Category Added Successfully');
     }
 
     /**
@@ -148,7 +148,7 @@ class CategoryController extends Controller
 
         $category->save();
 
-        return redirect()->route('categories.index')->with('success','Category Added Successfully');
+        return redirect()->route('dashboard.categories.index')->with('success','Category Added Successfully');
     }
 
     /**
@@ -168,6 +168,6 @@ class CategoryController extends Controller
             Storage::disk('s3')->delete($filetodelete);
         }
 
-        return redirect()->route('categories.index')->with('success','Category Deleted Successfully');
+        return redirect()->route('dashboard.categories.index')->with('success','Category Deleted Successfully');
     }
 }

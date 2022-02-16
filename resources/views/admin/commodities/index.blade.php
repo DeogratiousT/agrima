@@ -15,7 +15,7 @@
                 <span class="text-muted mt-1 fw-bold fs-7">{{ $commodities }} Commodities</span>
             </h3>
             <div class="card-toolbar">
-                <a href="{{ route('commodities.create') }}" class="btn btn-sm btn-light btn-active-primary">
+                <a href="{{ route('dashboard.commodities.create') }}" class="btn btn-sm btn-light btn-active-primary">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                     <span class="svg-icon svg-icon-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -58,11 +58,11 @@
         $(document).ready(function(){
             $("#commodities-laratable").DataTable({
                 serverSide: true,
-                ajax: "{{ route('commodities.index') }}",
+                ajax: "{{ route('dashboard.commodities.index') }}",
                 columns: [                
                         { name: 'name' },
                         { name: 'cover' },
-                        { name: 'subCategory.category.name' , orderable:false },
+                        { name: 'category' , orderable:false, searchable: false },
                         { name: 'subCategory.name' , orderable:false },
                         { name: 'quantity' },
                         { name: 'price' },
