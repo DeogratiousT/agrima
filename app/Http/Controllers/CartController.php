@@ -28,7 +28,7 @@ class CartController extends Controller
         $cart->addItem($commodity);
         $request->session()->put('cart', $cart);
         
-        return redirect()->route('shop')->with('success', 'Product added to cart successfully!');
+        return back()->with('success', 'Product added to cart successfully!');
     }
 
     public function incrementQty($slug)
@@ -84,7 +84,7 @@ class CartController extends Controller
                 unset($cart[$slug]);
                 session()->put('cart', $cart);
             }
-            return redirect()->route('cart')->with('success','Product removed successfully');
+            return back()->with('success','Product removed successfully');
         }
     }
 }

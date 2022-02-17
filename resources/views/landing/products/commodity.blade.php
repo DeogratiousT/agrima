@@ -35,7 +35,7 @@
 							<form action="index.html">
 								<input type="number" placeholder="0">
 							</form>
-							<a href="{{ route('cart') }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+							<a href="{{ route('cart.add', $commodity) }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
 							<p><strong>Categories: </strong>{{ $commodity->subCategory->category->name }}, {{ $commodity->subCategory->name }}</p>
 						</div>
 					</div>
