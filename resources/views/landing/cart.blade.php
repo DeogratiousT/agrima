@@ -46,24 +46,24 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach ($items as $slug => $details)
+										@foreach ($items as $slug => $item)
 											<tr class="table-body-row">
 												<td class="product-image">
-													<img src="{{ asset('uploads/commodities/commmodity-images/'. $details['cover_image']) }}" alt="">
+													<img src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $item['item']['cover_image'] }}" alt="">
 												</td>
 												<td class="product-name">
-													{{ $details['name'] }}
+													{{ $item['item']['name'] }}
 												</td>
 												<td class="product-price">
-													{{ $details['price'] }}
+													{{ $item['item']['price'] }}
 												</td>
 												<td class="product-quantity">
 													<a href="{{ route('cart.decrement', $slug) }}"><i class="fas fa-minus"></i></a> &nbsp;
-													<span class="border border-dark p-2">{{ $details['quantity'] }}</span> &nbsp;
+													<span class="border border-dark p-2">{{ $item['quantity'] }}</span> &nbsp;
 													<a href="{{ route('cart.increment', $slug) }}"><i class="fas fa-plus"></i></a>
 												</td>
 												<td class="product-total">
-													{{ $details['price'] * $details['quantity'] }}
+													{{ $item['item']['price'] * $item['item']['quantity'] }}
 												</td>
 												<td class="product-remove">
 													<a href="{{ route('cart.remove', $slug) }}">

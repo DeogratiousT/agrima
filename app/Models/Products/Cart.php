@@ -26,14 +26,14 @@ class Cart
         $itemToStore = ['item' => $commodity, 'price' => $commodity->price, 'quantity' => 0];
 
         if ($this->items) {
-            if (array_key_exists($commodity->id, $this->items)) {
-                $itemToStore = $this->items[$commodity->id];
+            if (array_key_exists($commodity->slug, $this->items)) {
+                $itemToStore = $this->items[$commodity->slug];
             }
         }
 
         $itemToStore['quantity'] ++;
         $itemToStore['price'] = $commodity->price * $itemToStore['quantity'];
-        $this->items[$commodity->id] = $itemToStore;
+        $this->items[$commodity->slug] = $itemToStore;
         $this->totalQuantity ++;
         $this->totalPrice += $commodity->price;
     }
