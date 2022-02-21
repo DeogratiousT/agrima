@@ -33,7 +33,7 @@
                             <li>
                                 <div class="header-icons">
                                     @auth
-                                        <a class="shopping-cart" href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i><sup class="badge badge-success">{{ Session::has('cart') ? Session::get('cart')->totalQuantity : '' }}</sup></a>
+                                        <a class="shopping-cart" href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i><sup class="badge badge-success">{{ Illuminate\Support\Facades\Redis::exists(Auth::id()) ? Illuminate\Support\Facades\Redis::hget(Auth::id(), 'totalQuantity') : 0 }}</sup></a>
 
                                         @if (Auth::user()->inRole(['administrator']))
                                             <a class="dashboard" href="{{ route('dashboard') }}"><i class="fas fa-th"></i></a>
