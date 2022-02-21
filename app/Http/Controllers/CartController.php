@@ -18,7 +18,7 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
-    public function addToCart(Request $request, $slug)
+    public function addToCart($slug)
     {        
         $commodity = Commodity::where('slug', $slug)->first();
 
@@ -26,7 +26,6 @@ class CartController extends Controller
 
         $cart = new Cart;
         $cart->addItem($commodity);
-        $request->session()->put('cart', $cart);
         
         return back()->with('success', 'Product added to cart successfully!');
     }
