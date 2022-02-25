@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Products\Cart;
 use App\Models\Products\Commodity;
 
 class CartController extends Controller
@@ -19,49 +20,14 @@ class CartController extends Controller
 
     public function addToCart($slug)
     {        
-        $product = Commodity::where('slug', $slug)->first();
+        $commodity = Commodity::where('slug', $slug)->first();
 
-        if(!$product) {
-            abort(404);
-        }
+        abort_unless($commodity, 403);
 
-        $cart = session()->get('cart');
-        // if cart is empty, then this is the first product
-        if(!$cart) {
-            $cart = [
-                    $slug => [
-                        "name" => $product->name,
-                        "quantity" => 1,
-                        "price" => $product->price,
-                        "cover_image" => $product->cover_image
-                    ]
-            ];
-
-            session()->put('cart', $cart);
-
-            return redirect()->route('cart')->with('success', 'Product added to cart successfully!');
-        }
-
-        // if cart not empty then check if this product exist then increment quantity
-        if(isset($cart[$slug])) {
-            $cart[$slug]['quantity']++;
-
-            session()->put('cart', $cart);
-
-            return redirect()->route('cart')->with('success', 'Product added to cart successfully!');
-        }
-
-        // if item not exist in cart then add to cart with quantity = 1
-        $cart[$slug] = [
-            "name" => $product->name,
-            "quantity" => 1,
-            "price" => $product->price,
-            "cover_image" => $product->cover_image
-        ];
-
-        session()->put('cart', $cart);
+        $cart = new Cart;
+        $cart->addItem($commodity);
         
-        return redirect()->route('cart')->with('success', 'Product added to cart successfully!');
+        return back()->with('success', 'Product added to cart successfully!');
     }
 
     public function incrementQty($slug)
@@ -117,7 +83,7 @@ class CartController extends Controller
                 unset($cart[$slug]);
                 session()->put('cart', $cart);
             }
-            return redirect()->route('cart')->with('success','Product removed successfully');
+            return back()->with('success','Product removed successfully');
         }
     }
 }

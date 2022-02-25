@@ -26,7 +26,7 @@
                             </div>
                             <h3>{{ $commodity->name }}</h3>
                             <p class="product-price"><span>Per Kg</span> {{ $commodity->price }} </p>
-                            <a href="{{ route('cart') }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <a href="{{ route('cart.add', $commodity) }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                         </div>
                     </div>
                 @endforeach
