@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Products\Cart;
 use App\Models\Products\Category;
 
 class HomeController extends Controller
@@ -21,7 +22,9 @@ class HomeController extends Controller
 
     public function cart()
     {
-        return view('landing.cart');
+        $cart = new Cart;
+        $cart->getItems();
+        return view('landing.cart',['items'=>$cart->items, 'total'=>$cart->totalPrice]);
     }
 
     public function checkout()

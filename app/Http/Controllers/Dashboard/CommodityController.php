@@ -140,7 +140,7 @@ class CommodityController extends Controller
         $commodity->update(
             [
                 'name' => $validated['name'],
-                'category_id' => $validated['category_id'],
+                'sub_category_id' => $validated['sub_category_id'],
                 'quantity' => $validated['quantity'],
                 'price' => $validated['price'],
                 'sub_category_id' => $validated['sub_category_id'],
