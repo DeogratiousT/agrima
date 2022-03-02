@@ -23,8 +23,8 @@ class HomeController extends Controller
     public function cart()
     {
         $cart = new Cart;
-        $cart->getItems();
-        return view('landing.cart',['items'=>$cart->items, 'total'=>$cart->totalPrice]);
+        $cartItems = $cart->getItems(); 
+        return view('landing.cart',['items'=>$cartItems['items'], 'total'=>$cartItems['totalPrice']]);
     }
 
     public function checkout()

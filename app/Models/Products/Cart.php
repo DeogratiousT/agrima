@@ -75,7 +75,7 @@ class Cart
             'totalPrice' => $this->totalPrice,
             'items' => collect($this->items)->transform(function ($item) {
                 return [
-                    'item' => Commodity::find($item['id']),
+                    'commodity' => Commodity::find($item['id']),
                     'price' => $item['price'],
                     'quantity' => $item['quantity']
                 ];
