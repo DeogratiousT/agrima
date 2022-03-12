@@ -46,27 +46,25 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach ($items as $slug => $item)
+										@foreach ($items as $item)
 											<tr class="table-body-row">
 												<td class="product-image">
-													<img src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $item['item']['cover_image'] }}" alt="">
+													<img src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $item['commodity']['cover_image'] }}" alt="">
 												</td>
 												<td class="product-name">
-													{{ $item['item']['name'] }}
+													{{ $item['commodity']['name'] }}
 												</td>
 												<td class="product-price">
-													{{ $item['item']['price'] }}
+													{{ $item['commodity']['price'] }}
 												</td>
 												<td class="product-quantity">
-													<a href="{{ route('cart.decrement', $slug) }}"><i class="fas fa-minus"></i></a> &nbsp;
-													<span class="border border-dark p-2">{{ $item['quantity'] }}</span> &nbsp;
-													<a href="{{ route('cart.increment', $slug) }}"><i class="fas fa-plus"></i></a>
+													<input type="number" value="{{ $item['quantity'] }}" min="1">
 												</td>
 												<td class="product-total">
-													{{ $item['item']['price'] * $item['item']['quantity'] }}
+													{{ $item['commodity']['price'] * $item['commodity']['quantity'] }}
 												</td>
 												<td class="product-remove">
-													<a href="{{ route('cart.remove', $slug) }}">
+													<a href="{{ route('cart.remove', $item['commodity']['slug']) }}">
 														<i class="fas fa-trash text-danger" style="font-size: 1.5rem;"></i>
 													</a>
 												</td>
@@ -89,10 +87,16 @@
 								</a>
 							</div>
 							<div class="float-right">
+								<div class="float-right">
 								<a href="{{ route('checkout') }}" class="btn btn-primary btn-lg">
 									<i class="fas fa-cart-plus"></i>
+									Update Cart
+								</a>
+								<a href="{{ route('checkout') }}" class="btn btn-primary btn-lg">
+									<i class="fas fa-shopping-cart"></i>
 									Checkout
 								</a>
+							</div>
 							</div>
 						</div>
 					</div>
