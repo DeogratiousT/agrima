@@ -48,7 +48,7 @@ Route::post('contact/store', [ContactController::class, 'store'])->name('contact
 
 Route::get('add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('update-cart', [CartController::class, 'update'])->name('cart.update');
-Route::get('remove/{commodity}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('remove', [CartController::class, 'remove'])->name('cart.remove');
 
 Route::prefix('dashboard')->group(function () {
     Route::middleware(['auth','admin'])->group(function () {
