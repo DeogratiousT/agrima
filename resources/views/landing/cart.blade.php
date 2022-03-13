@@ -62,19 +62,45 @@
 														<input type="number" name="{{ $item['commodity']['slug'] }}" id="{{ $item['commodity']['slug'] }}" value="{{ $item['quantity'] }}" min="1" onchange="updateQuantity({{ $item['commodity'] }} , {{ $item['quantity'] }})">
 													</form>
 												</td>
-												<td class="product-total">
+												<td class="product-total" id="price-{{ $item['commodity']['slug'] }}">
 													{{ $item['price'] }}
 												</td>
 												<td class="product-remove">
-													<a href="{{ route('cart.remove', $item['commodity']['slug']) }}">
+													<button class="btn btn-link" data-toggle="modal" data-target="#deleteModal">
 														<i class="fas fa-trash text-danger" style="font-size: 1.5rem;"></i>
-													</a>
+													</button>
 												</td>
 											</tr>
+
+											<!-- Delete Modal -->
+											<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+												<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Remove {{ $item['commodity']['name'] }}</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<p>
+																Deleting this product removes it from your current cart. <br>
+																Do you still wish to proceed removing this product?
+															</p>
+
+															<div class="float-right">
+																<button type="button" class="btn btn-danger" onclick="removeItem({{ $item['commodity'] }})">Remove {{ $item['commodity']['name'] }}</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											{{-- End Delete modal --}}
+
 										@endforeach
 										<tr>
 											<td colspan="4"><strong>SUB TOTAL</strong></td>
-											<td><strong>{{ $total }}</strong></td>
+											<td id="total-price"><strong>{{ $total }}</strong></td>
 											<td></td>
 										</tr>
 									</tbody>
@@ -101,7 +127,7 @@
 					</div>
 				</div>
 			</div>
-        </div>
+        </div>		
     </div>  
 @endsection
 
@@ -110,26 +136,40 @@
 	<script>
 		function updateQuantity(item, currentQuantity){
 			let newQuantity = document.getElementById(item.slug).value;
-
+			
 			const requestBody = {
-				item : item,
+				slug : item.slug,
 				newQuantity : newQuantity,
 			}
 
 			if (currentQuantity != newQuantity) {
 				axios.post("{{ route('cart.update') }}", requestBody)
 				.then((response) => {
-					if (response.data.ResponseDescription) {
-						// update total cost
-					}else{
-						// update total cost
+					if (response.data.itemSlug == item.slug) {
+						document.getElementById("price-" + response.data.itemSlug).innerHTML = response.data.itemPrice;
+						document.getElementById('total-price').innerHTML = response.data.totalPrice;
 					}
 				})
 				.catch((error) => {
 					console.log(error);
 				});
-			}else{
-				// update total cost
+			}
+		}
+
+		function removeItem(item){
+			const requestBody = {
+				slug : item.slug,
+			}
+
+			axios.post("{{ route('cart.delete') }}", requestBody)
+				.then((response) => {
+					if (response.data.itemSlug == item.slug) {
+						document.getElementById("price-" + response.data.itemSlug).innerHTML = "";
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 			}
 		}
 	</script>

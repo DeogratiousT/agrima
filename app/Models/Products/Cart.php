@@ -3,6 +3,7 @@
 namespace App\Models\Products;
 
 use App\Models\Products\Commodity;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
@@ -79,7 +80,44 @@ class Cart
                     'price' => $item['price'],
                     'quantity' => $item['quantity']
                 ];
-            })
+            }),
         ];        
+    }
+
+    public function updateItems($commodity, $newQuantity)
+    {
+        if ($this->items) {
+            if (array_key_exists($commodity->id, $this->items)) {
+                $itemToStore = $this->items[$commodity->id];
+
+                // Deduct old Total Quantity and price
+                $deductedTotalQuantity = $this->totalQuantity - $itemToStore['quantity'];
+                $deductedTotalPrice = $this->totalPrice - $itemToStore['price'];
+
+                // Update item Price and Quantity
+                $itemToStore['quantity'] = $newQuantity;
+                $itemToStore['price'] = $commodity->price * $itemToStore['quantity'];
+
+                // Update Totals
+                $this->items[$commodity->id] = $itemToStore;
+                $this->items= serialize($this->items);
+                $this->totalQuantity = $deductedTotalQuantity + $itemToStore['quantity'];
+                $this->totalPrice = $deductedTotalPrice + $itemToStore['price'];
+
+                // Persist changes to Redis
+                $this->storeItems();
+
+                return [
+                    'itemSlug' => $commodity->slug,
+                    'itemPrice' =>  $itemToStore['price'],
+                    'totalPrice' => $this->totalPrice
+                ];
+
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }

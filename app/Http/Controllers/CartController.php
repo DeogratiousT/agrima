@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Products\Cart;
 use App\Models\Products\Commodity;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 
 class CartController extends Controller
 {
@@ -32,14 +33,17 @@ class CartController extends Controller
     }
 
     public function update(Request $request)
-    {        
-        Log::info($request->all());
+    {      
+        $commodity = Commodity::where('slug', $request->slug)->first();
+
         abort_unless($commodity, 403);
 
         $cart = new Cart;
-        $cart->updateCart();
+        $updatedCart = $cart->updateItems($commodity, $request->newQuantity);
 
-        return redirect()->route('cart')->with('success', 'Cart Updated successfully!');
+        if ($updatedCart) {
+            return Response::json($updatedCart);
+        }
     }
 
     public function remove($slug)
