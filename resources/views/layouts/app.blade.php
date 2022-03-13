@@ -83,7 +83,7 @@
 	<!-- isotope -->
 	<script src="{{ asset('fruitkha/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
 	<!-- waypoints -->
-	<script src="{{ asset('fruitkha/assets/js/waypoints.js0') }}"></script>
+	<script src="{{ asset('fruitkha/assets/js/waypoints.js') }}"></script>
 	<!-- owl carousel -->
 	<script src="{{ asset('fruitkha/assets/js/owl.carousel.min.js') }}"></script>
 	<!-- magnific popup -->

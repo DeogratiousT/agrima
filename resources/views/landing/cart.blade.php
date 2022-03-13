@@ -58,10 +58,12 @@
 													{{ $item['commodity']['price'] }}
 												</td>
 												<td class="product-quantity">
-													<input type="number" value="{{ $item['quantity'] }}" min="1">
+													<form id="form-{{ $item['commodity']['slug'] }}">
+														<input type="number" name="{{ $item['commodity']['slug'] }}" id="{{ $item['commodity']['slug'] }}" value="{{ $item['quantity'] }}" min="1" onchange="updateQuantity({{ $item['commodity'] }} , {{ $item['quantity'] }})">
+													</form>
 												</td>
 												<td class="product-total">
-													{{ $item['commodity']['price'] * $item['commodity']['quantity'] }}
+													{{ $item['price'] }}
 												</td>
 												<td class="product-remove">
 													<a href="{{ route('cart.remove', $item['commodity']['slug']) }}">
@@ -71,8 +73,9 @@
 											</tr>
 										@endforeach
 										<tr>
-											<td colspan="5"><strong>SUB TOTAL</strong></td>
+											<td colspan="4"><strong>SUB TOTAL</strong></td>
 											<td><strong>{{ $total }}</strong></td>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>
@@ -88,15 +91,11 @@
 							</div>
 							<div class="float-right">
 								<div class="float-right">
-								<a href="{{ route('checkout') }}" class="btn btn-primary btn-lg">
-									<i class="fas fa-cart-plus"></i>
-									Update Cart
-								</a>
-								<a href="{{ route('checkout') }}" class="btn btn-primary btn-lg">
-									<i class="fas fa-shopping-cart"></i>
-									Checkout
-								</a>
-							</div>
+									<a href="{{ route('checkout') }}" class="btn btn-primary btn-lg">
+										<i class="fas fa-shopping-cart"></i>
+										Checkout
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -105,3 +104,33 @@
         </div>
     </div>  
 @endsection
+
+@push('scripts')
+	<script src="{{ asset('js/app.js') }}"></script> 
+	<script>
+		function updateQuantity(item, currentQuantity){
+			let newQuantity = document.getElementById(item.slug).value;
+
+			const requestBody = {
+				item : item,
+				newQuantity : newQuantity,
+			}
+
+			if (currentQuantity != newQuantity) {
+				axios.post("{{ route('cart.update') }}", requestBody)
+				.then((response) => {
+					if (response.data.ResponseDescription) {
+						// update total cost
+					}else{
+						// update total cost
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			}else{
+				// update total cost
+			}
+		}
+	</script>
+@endpush
