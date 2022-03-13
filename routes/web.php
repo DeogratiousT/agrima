@@ -47,8 +47,7 @@ Route::get('help', [HomeOtherController::class, 'help'])->name('help');
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::get('increment-quantity/{commodity}', [CartController::class, 'incrementQty'])->name('cart.increment');
-Route::get('decrement-quantity/{commodity}', [CartController::class, 'decrementQty'])->name('cart.decrement');
+Route::post('update-cart', [CartController::class, 'update'])->name('cart.update');
 Route::get('remove/{commodity}', [CartController::class, 'remove'])->name('cart.remove');
 
 Route::prefix('dashboard')->group(function () {

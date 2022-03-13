@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Products\Cart;
 use App\Models\Products\Commodity;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -30,49 +31,15 @@ class CartController extends Controller
         return back()->with('success', 'Product added to cart successfully!');
     }
 
-    public function incrementQty($slug)
+    public function update(Request $request)
     {        
-        $product = Commodity::where('slug', $slug)->first();
+        Log::info($request->all());
+        abort_unless($commodity, 403);
 
-        if(!$product) {
-            return redirect()->route('cart')->with('error','Product Not Found');
-        }
+        $cart = new Cart;
+        $cart->updateCart();
 
-        $cart = session()->get('cart');
-        // increment quantity
-        if(isset($cart[$slug])) {
-            $cart[$slug]['quantity']++;
-
-            session()->put('cart', $cart);
-
-            return redirect()->route('cart')->with('success', 'Quantity Incremented successfully!');
-        }
-
-        return redirect()->route('cart')->with('error','Request Denied');
-    }
-
-    public function decrementQty($slug)
-    {        
-        $product = Commodity::where('slug', $slug)->first();
-
-        if(!$product) {
-            return redirect()->route('cart')->with('error','Product Not Found');
-        }
-
-        $cart = session()->get('cart');
-        // Decrement quantity
-        if(isset($cart[$slug])) {
-            if ($cart[$slug]['quantity'] > 1) {
-                $cart[$slug]['quantity']--;
-
-                session()->put('cart', $cart);
-
-                return redirect()->route('cart')->with('success', 'Quantity Decremented successfully!');
-            }
-            return redirect()->route('cart')->with('error', 'Quantity Cannot be Decremented any Further!');
-        }
-
-        return redirect()->route('cart')->with('error','Request Denied');
+        return redirect()->route('cart')->with('success', 'Cart Updated successfully!');
     }
 
     public function remove($slug)
