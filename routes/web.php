@@ -11,6 +11,7 @@ use App\Http\Controllers\CommodityController;
 use App\Http\Controllers\HomeOtherController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Payments\MpesaController;
 use App\Http\Controllers\Dashboard\HomeController as DashboardController;
 use App\Http\Controllers\Dashboard\CategoryController as DashboardCategoryController;
 use App\Http\Controllers\Dashboard\CommodityController as DashboardCommodityController;
@@ -49,6 +50,11 @@ Route::post('contact/store', [ContactController::class, 'store'])->name('contact
 Route::get('add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('update-cart', [CartController::class, 'update'])->name('cart.update');
 Route::post('remove', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::post('get-token/store', [MpesaController::class, 'getAccessToken'])->name('token.store');
+Route::post('registerurls', [MpesaController::class, 'registerUrls'])->name('registerurls');
+Route::post('stkpush',[MpesaController::class,'stkPush'])->name('stkpush');
+Route::post('simulatetransaction',[MpesaController::class,'simulateTransaction'])->name('simulatetransaction');
 
 Route::prefix('dashboard')->group(function () {
     Route::middleware(['auth','admin'])->group(function () {

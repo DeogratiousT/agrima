@@ -88,32 +88,69 @@ class Cart
     {
         if ($this->items) {
             if (array_key_exists($commodity->id, $this->items)) {
-                $itemToStore = $this->items[$commodity->id];
+                $itemToUpdate = $this->items[$commodity->id];
 
                 // Deduct old Total Quantity and price
-                $deductedTotalQuantity = $this->totalQuantity - $itemToStore['quantity'];
-                $deductedTotalPrice = $this->totalPrice - $itemToStore['price'];
+                $deductedTotalQuantity = $this->totalQuantity - $itemToUpdate['quantity'];
+                $deductedTotalPrice = $this->totalPrice - $itemToUpdate['price'];
 
                 // Update item Price and Quantity
-                $itemToStore['quantity'] = $newQuantity;
-                $itemToStore['price'] = $commodity->price * $itemToStore['quantity'];
+                $itemToUpdate['quantity'] = $newQuantity;
+                $itemToUpdate['price'] = $commodity->price * $itemToUpdate['quantity'];
 
                 // Update Totals
-                $this->items[$commodity->id] = $itemToStore;
+                $this->items[$commodity->id] = $itemToUpdate;
                 $this->items= serialize($this->items);
-                $this->totalQuantity = $deductedTotalQuantity + $itemToStore['quantity'];
-                $this->totalPrice = $deductedTotalPrice + $itemToStore['price'];
+                $this->totalQuantity = $deductedTotalQuantity + $itemToUpdate['quantity'];
+                $this->totalPrice = $deductedTotalPrice + $itemToUpdate['price'];
 
                 // Persist changes to Redis
                 $this->storeItems();
 
                 return [
                     'itemSlug' => $commodity->slug,
-                    'itemPrice' =>  $itemToStore['price'],
-                    'totalPrice' => $this->totalPrice
+                    'itemPrice' =>  $itemToUpdate['price'],
+                    'totalPrice' => $this->totalPrice,
+                    'totalQuantity' => $this->totalQuantity
                 ];
 
             }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public function deleteItem($commodity)
+    {
+        if ($this->items) {
+            if (array_key_exists($commodity->id, $this->items)) {
+                $itemToRemove = $this->items[$commodity->id];
+
+                // Deduct old Total Quantity and price
+                $deductedTotalQuantity = $this->totalQuantity - $itemToRemove['quantity'];
+                $deductedTotalPrice = $this->totalPrice - $itemToRemove['price'];
+                Log::info($this->items);
+                // Update Totals
+                unset($this->items[$commodity->id]);
+                Log::info($this->items);
+
+                $this->items = serialize($this->items);
+                $this->totalQuantity = $deductedTotalQuantity;
+                $this->totalPrice = $deductedTotalPrice;
+
+                // Persist changes to Redis
+                $this->storeItems();
+
+                return [
+                    'itemSlug' => $commodity->slug,
+                    'totalPrice' => $this->totalPrice,
+                    'totalQuantity' => $this->totalQuantity
+                ];
+
+            }else{
+                Log::info('nje');
                 return false;
             }
         }else{

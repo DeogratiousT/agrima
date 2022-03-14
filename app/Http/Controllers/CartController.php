@@ -44,17 +44,21 @@ class CartController extends Controller
         if ($updatedCart) {
             return Response::json($updatedCart);
         }
+
+        return false;
     }
 
-    public function remove($slug)
+    public function remove(Request $request)
     {
-        if($slug) {
-            $cart = session()->get('cart');
-            if(isset($cart[$slug])) {
-                unset($cart[$slug]);
-                session()->put('cart', $cart);
-            }
-            return back()->with('success','Product removed successfully');
+        $commodity = Commodity::where('slug', $request->slug)->first();
+
+        abort_unless($commodity, 403);
+
+        $cart = new Cart;
+        $reducedCart = $cart->deleteItem($commodity);
+
+        if ($reducedCart) {
+            return Response::json($reducedCart);
         }
     }
 }

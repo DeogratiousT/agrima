@@ -47,7 +47,7 @@
 									</thead>
 									<tbody>
 										@foreach ($items as $item)
-											<tr class="table-body-row">
+											<tr class="table-body-row" id="tr-{{ $item['commodity']['slug'] }}">
 												<td class="product-image">
 													<img src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $item['commodity']['cover_image'] }}" alt="">
 												</td>
@@ -148,6 +148,8 @@
 					if (response.data.itemSlug == item.slug) {
 						document.getElementById("price-" + response.data.itemSlug).innerHTML = response.data.itemPrice;
 						document.getElementById('total-price').innerHTML = response.data.totalPrice;
+						document.getElementById('header-total-quantity').innerHTML = response.data.totalQuantity;
+						
 					}
 				})
 				.catch((error) => {
@@ -157,20 +159,25 @@
 		}
 
 		function removeItem(item){
+			event.preventDefault();
+
 			const requestBody = {
 				slug : item.slug,
 			}
 
-			axios.post("{{ route('cart.delete') }}", requestBody)
-				.then((response) => {
-					if (response.data.itemSlug == item.slug) {
-						document.getElementById("price-" + response.data.itemSlug).innerHTML = "";
-					}
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-			}
+			axios.post("{{ route('cart.remove') }}", requestBody)
+			.then((response) => {
+				console.log(response.data);
+				if (response.data.itemSlug == item.slug) {
+					$('#deleteModal').modal('toggle');
+					document.getElementById("tr-" + response.data.itemSlug).innerHTML = "";
+					document.getElementById("total-price").innerHTML = response.data.totalPrice;
+					document.getElementById('header-total-quantity').innerHTML = response.data.totalQuantity;
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 		}
 	</script>
 @endpush
