@@ -8,6 +8,16 @@ use App\Models\Products\Category;
 
 class HomeController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['cart','checkout']);
+    }
+
     public function index()
     {
         $categories = Category::all();
@@ -29,7 +39,9 @@ class HomeController extends Controller
 
     public function checkout()
     {
-        return view('landing.checkout');
+        $cart = new Cart;
+        $cartItems = $cart->getItems(); 
+        return view('landing.checkout',['items'=>$cartItems['items'], 'total'=>$cartItems['totalPrice']]);
     }
 
     public function insights()
