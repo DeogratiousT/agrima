@@ -96,8 +96,6 @@ class MpesaController extends Controller
             "TransactionDesc" => env('MPESA_TEST_ACCOUNT') 
         ];
 
-        Log::info($curl_post_data);
-
         $response =  $this->makeHttp($url, $curl_post_data);
 
         Log::info($response);
