@@ -12,7 +12,7 @@ use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Support\Facades\Storage;
 use App\Laratables\SubCategoriesLaratables;
 
-class SubCategorycontroller extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
