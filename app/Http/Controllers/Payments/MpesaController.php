@@ -35,7 +35,8 @@ class MpesaController extends Controller
             array(
                 CURLOPT_HTTPHEADER => ['Authorization: Basic '.$base64MpesaCredentials],
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_SSL_VERIFYPEER => false
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
             )
         );
 
@@ -61,7 +62,8 @@ class MpesaController extends Controller
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_POST => true,
                 CURLOPT_POSTFIELDS => $curl_post_data,
-                CURLOPT_SSL_VERIFYPEER => false
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
         ));
 
         $curl_response = curl_exec($curl);
@@ -94,7 +96,11 @@ class MpesaController extends Controller
             "TransactionDesc" => env('MPESA_TEST_ACCOUNT') 
         ];
 
+        Log::info($curl_post_data);
+
         $response =  $this->makeHttp($url, $curl_post_data);
+
+        Log::info($response);
 
         $merchant_id = json_decode($response)->MerchantRequestID;
 

@@ -18,7 +18,8 @@ class MpesaResponseController extends Controller
 {
     public function stkPush(Request $request)
     {
-        Log::info('response');
+        Log::info('here');
+        Log::info($request->all());
         $dotArr = Arr::dot($request->Body);
         
         if ($dotArr['stkCallback.ResultCode'] == 0) { 
