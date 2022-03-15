@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "^1.0",
         "predis/predis": "^1.1",
+        "sentry/sentry-laravel": "^2.11",
         "spatie/laravel-sluggable": "^2.6"
     },
     "require-dev": {
