@@ -100,7 +100,7 @@
 												<div class="form-wrapper">
 													<div class="input-group">
 														<input id="phone-prefix" type="text" name="phone-prefix" value="+254" class="form-control form-control-minimal" placeholder="+254" disabled style="max-width: 15%;">                             
-														<input id="phone" type="number" name="number" class="form-control form-control-minimal" placeholder="7xxxxxxxx" required="" value="795615409">                           
+														<input id="phone" type="number" name="number" class="form-control form-control-minimal" placeholder="7xxxxxxxx" required="" value="795615409">                         
 													</div>
 													
 												</div>
