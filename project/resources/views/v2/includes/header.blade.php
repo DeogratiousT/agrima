@@ -6,8 +6,8 @@
                 <!-- Logo
                 ============================================= -->
                 <div id="logo" class="mx-auto col-auto flex-column order-2">
-                    <a href="demo-furniture.html" class="standard-logo"><img src="{{ asset('assets/canvas/demos/furniture/images/logo.png') }}" alt="Canvas Logo"></a>
-                    <a href="demo-furniture.html" class="retina-logo"><img src="{{ asset('assets/canvas/demos/furniture/images/logo@2x.png') }}" alt="Canvas Logo"></a>
+                    <a href="demo-furniture.html" class="standard-logo"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="Canvas Logo"></a>
+                    <a href="demo-furniture.html" class="retina-logo"><img src="{{ asset('assets/images/logos/logo.png') }}" alt="Canvas Logo"></a>
                 </div><!-- #logo end -->
 
                 <div class="header-misc col-auto col-lg-3 order-3 justify-content-lg-end ms-0 ms-sm-3 px-0">
