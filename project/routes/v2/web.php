@@ -1,0 +1,72 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\V2\CartController;
+use App\Http\Controllers\V2\HomeController;
+use App\Http\Controllers\V2\RoleController;
+use App\Http\Controllers\V2\ContactController;
+use App\Http\Controllers\V2\ProductController;
+use App\Http\Controllers\V2\CategoryController;
+use App\Http\Controllers\V2\CommodityController;
+use App\Http\Controllers\V2\HomeOtherController;
+use App\Http\Controllers\V2\SubCategoryController;
+use App\Http\Controllers\V2\Dashboard\UserController;
+use App\Http\Controllers\V2\Payments\MpesaController;
+use App\Http\Controllers\V2\Dashboard\HomeController as DashboardController;
+use App\Http\Controllers\V2\Dashboard\CategoryController as DashboardCategoryController;
+use App\Http\Controllers\V2\Dashboard\CommodityController as DashboardCommodityController;
+use App\Http\Controllers\V2\Dashboard\SubCategoryController as DashboardSubCategoryController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('about', [HomeController::class, 'about'])->name('about');
+Route::get('insights', [HomeController::class, 'insights'])->name('insights');
+Route::get('contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('cart', [HomeController::class, 'cart'])->name('cart');
+Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout');
+
+Route::get('shop', [ProductController::class ,'shop'])->name('shop');
+Route::get('categories/{category}', [ProductController::class ,'category'])->name('category');
+Route::get('sub-categories/{subCategory}', [ProductController::class ,'subCategory'])->name('sub-category');
+Route::get('commodities/{commodity}', [ProductController::class ,'commodity'])->name('commodity');
+
+Route::get('terms-and-conditions', [HomeOtherController::class, 'tcs'])->name('terms.conds');
+Route::get('faqs', [HomeOtherController::class, 'faqs'])->name('faqs');
+Route::get('privacy-policy', [HomeOtherController::class, 'ppolicy'])->name('privacy.policy');
+Route::get('help', [HomeOtherController::class, 'help'])->name('help');
+
+Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('update-cart', [CartController::class, 'update'])->name('cart.update');
+Route::post('remove', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::post('get-token/store', [MpesaController::class, 'getAccessToken'])->name('token.store');
+Route::post('registerurls', [MpesaController::class, 'registerUrls'])->name('registerurls');
+Route::post('stkpush',[MpesaController::class,'stkPush'])->name('stkpush');
+Route::post('simulatetransaction',[MpesaController::class,'simulateTransaction'])->name('simulatetransaction');
+
+Route::prefix('dashboard')->group(function () {
+    Route::middleware(['auth','admin'])->group(function () {
+        Route::name('dashboard.')->group(function () {
+            Route::resource('categories', DashboardCategoryController::class);
+            Route::resource('sub-categories', DashboardSubCategoryController::class);
+            Route::resource('commodities', DashboardCommodityController::class);
+        });
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+        Route::resource('users', UserController::class);
+
+        Route::get('contact/index', [ContactController::class, 'index'])->name('contact.index');
+    });
+});
