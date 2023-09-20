@@ -6557,9 +6557,11 @@ body:not(.has-plugin-html5video) .video-wrap video {
 -----------------------------------------------------------------*/
 
 .page-title-pattern {
-	background-image: url('images/pattern.png');
-	background-repeat: repeat;
+	background-image: url('/assets/images/pattern.png');
+	background-repeat: no-repeat;
+	background-size: cover;
 	background-attachment: fixed;
+	background-position-y: bottom;
 }
 
 /* Page Title - Parallax Background

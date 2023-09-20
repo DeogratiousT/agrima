@@ -1,79 +1,40 @@
-@extends('layouts.app')
-
-@section('page-imports')
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-@endsection
+@extends('v2.layouts.app')
 
 @section('content')
-    <!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<h1>All Products</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
+    <!-- Title
+    ============================================= -->
+    <section id="page-title" class="page-title-parallax page-title-dark skrollable skrollable-between"
+    style="background-image: url('/assets/images/about.png'); padding: 120px 0px; background-position: 0px -63.3645px; opacity: 0.8" data-bottom-top="background-position:0 -300px;" data-top-bottom="background-position:0px -300px;">
 
-	<div class="mt-2 mb-2">
-        <div class="container">
-            <div class="pr">
-                <div class="tab">
-                    @foreach ($categories as $category)
-                        @if (count($category->subCategories) > 0)
-                            <button class="tablinks" onmouseover="openCategory(event, '{{ $category-> id }}')">{{ $category->name }}</button>
-                        @endif
-                    @endforeach
+        <div class="container clearfix">
+            <h1 class="bg-success p-2 rounded d-inline-block">Shop</h1>
+        </div>
+
+    </section> <!-- #title end -->
+
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="section-title text-center">
+                    <h3 class="mb-3">Shop by <span data-animate="svg-underline-animated"
+                        class="svg-underline nocolor svg-underline-animated animated">Category</span></h3>
                 </div>
-                    
-                @foreach ($categories as $category)
-                    @if (count($category->subCategories) > 0)
-                        <div id="{{ $category->id}}" class="tabcontent">
-                            <h4 class="mb-0"><a href="{{ route('category', $category) }}" class="text-dark tabcontent-link">{{ $category->name }}</a></h4>                            
-                            <div class="card-columns">
-                                @foreach ($category->subCategories as $subCategory)
-                                    @if (count($subCategory->commodities) > 0)
-                                        <div class="card pr-card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <a href="{{ route('sub-category', $subCategory) }}" class="text-dark tabcontent-link"><u>{{ $subCategory->name }}</u></a>
-                                                </h5>
-                                                @foreach ($subCategory->commodities as $commodity)
-                                                    <a href="{{ route('commodity', $commodity) }}" class="m-0 p-0 text-dark tabcontent-link">{{ $commodity->name }}</a> <br>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>                            
-                        </div>
-                    @endif
-                @endforeach
 
-                <div class="clearfix"></div>
+                <!-- Categories -->
+				<div class="row item-categories gutter-20 justify-content-center mt-4">
+					@forelse ($categories as $category)
+						<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+							<a href="{{ route('v2.category', $category) }}" class="d-block h-op-09 op-ts rounded custom-shadow" style="background: url('{{ env('AWS_URL') . '/category-images/' . $category->cover_image ?? $fallbackImageUrl  }}') no-repeat center center; background-size: cover; height: 120px;">
+								<h5 class="text-uppercase ls1 bg-dark text-light mb-0 p-2">{{ $category->name }}</h5>
+							</a>
+						</div>
+                    @empty
+                        <p class="text-dark">No Records Found</p>
+					@endforelse
+				</div>
+
             </div>
         </div>
-    </div>
+    </section>
 @endsection
-
-@push('scripts')
-<script>
-    function openCategory(evt, category) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(category).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-    </script>
-@endpush

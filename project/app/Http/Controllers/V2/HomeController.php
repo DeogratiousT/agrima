@@ -22,36 +22,37 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $fallbackImageUrl = asset('assets/images/noimage.jpg');
 
-        return view('v2.landing.home', ['categories'=>$categories]);
+        return view('v2.landing.home', ['categories'=>$categories, 'fallbackImageUrl'=>$fallbackImageUrl]);
     }
 
     public function about()
     {
-        return view('landing.about');
+        return view('v2.landing.about');
     }
 
     public function cart()
     {
         $cart = new Cart;
         $cartItems = $cart->getItems(); 
-        return view('landing.cart',['items'=>$cartItems['items'], 'total'=>$cartItems['totalPrice']]);
+        return view('v2.landing.cart',['items'=>$cartItems['items'], 'total'=>$cartItems['totalPrice']]);
     }
 
     public function checkout()
     {
         $cart = new Cart;
         $cartItems = $cart->getItems(); 
-        return view('landing.checkout',['items'=>$cartItems['items'], 'total'=>$cartItems['totalPrice']]);
+        return view('v2.landing.checkout',['items'=>$cartItems['items'], 'total'=>$cartItems['totalPrice']]);
     }
 
     public function insights()
     {
-        return view('landing.insights');
+        return view('v2.landing.insights');
     }
 
     public function contact()
     {
-        return view('landing.contact');
+        return view('v2.landing.contact');
     }
 }

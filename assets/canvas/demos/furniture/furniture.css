@@ -3,7 +3,7 @@
 -----------------------------------------------------------------*/
 
 :root {
-	--themecolor: #193532;
+	--themecolor: #529261;
 	--themecolorlight: #EBF1F0;
 }
 
@@ -58,7 +58,7 @@ body:not(.primary-menu-open) #primary-menu-trigger svg:nth-child(2) { display: n
 .slider-element:not(.bg-color) {
   background-image: linear-gradient(
 	to bottom,
-	#375754 0%,
+	#529261 0%,
 	var(--themecolor) 90%,
 	var(--themecolorlight) 90%
   );
@@ -157,7 +157,7 @@ body:not(.primary-menu-open) #primary-menu-trigger svg:nth-child(2) { display: n
 	.slider-element:not(.bg-color) {
 	background-image: linear-gradient(
 		to bottom,
-		#375754 0%,
+		#529261 0%,
 		var(--themecolor) 84%,
 		var(--themecolorlight) 84%
 		);

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Products\Category;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,5 +32,9 @@ class AppServiceProvider extends ServiceProvider
         if (App::environment('staging')) {
             URL::forceScheme('https');
         }
+
+        View::composer('v2.includes.header', function ($view) {
+            return $view->with('categories', Category::with('subCategories.commodities')->get());
+        });
     }
 }
