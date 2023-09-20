@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        View::composer('v2.includes.header', function ($view) {
+        View::composer('includes.header', function ($view) {
             return $view->with('categories', Category::with('subCategories.commodities')->get());
         });
     }

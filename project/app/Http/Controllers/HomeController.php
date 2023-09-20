@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Products\Cart;
 use App\Models\Products\Category;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,9 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $fallbackImageUrl = asset('assets/images/noimage.jpg');
 
-        return view('landing.home', ['categories'=>$categories]);
+        return view('landing.home', ['categories'=>$categories, 'fallbackImageUrl'=>$fallbackImageUrl]);
     }
 
     public function about()

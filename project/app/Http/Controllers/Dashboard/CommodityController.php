@@ -9,7 +9,6 @@ use App\Models\Products\Category;
 use App\Models\Products\Commodity;
 use App\Http\Controllers\Controller;
 use App\Models\Products\SubCategory;
-use Intervention\Image\Facades\Image;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Support\Facades\Storage;
 use App\Laratables\CommoditiesLaratables;
@@ -75,8 +74,6 @@ class CommodityController extends Controller
 
         //Handle File upload
         if($validated['cover_image']){
-            $uploadedFile = $validated['cover_image'];
-
             //Get File Name with the Extension
             $filenameWithExt = $validated['cover_image']->getClientOriginalName();
             //Get just File name
@@ -85,15 +82,9 @@ class CommodityController extends Controller
             $extension = $validated['cover_image']->getClientOriginalExtension();
             //Filename to store
             $fileNameToStore = $filename.'_'.Str::random('5').'.'.$extension;
-            // Store the uploaded file in a temporary location
-            $tempFilePath = $uploadedFile->store('temp');
-            // Get the full file path of the stored file
-            $fullFilePath = storage_path('app/' . $tempFilePath);
-            // Create Intervention
-            $cover_image = Image::make($fullFilePath)->resize(1080, 1080)->save();
             //Upload Image
             // $path = $validated['cover_image']->storeAs('featured-images', $fileNameToStore, 'public_uploads');
-            Storage::disk('s3')->putFileAs('commodity-images', new File($fullFilePath), $fileNameToStore);
+            Storage::disk('s3')->putFileAs('commodity-images', new File($validated['cover_image']), $fileNameToStore);
 
             $commodity->cover_image = $fileNameToStore;
 
@@ -158,7 +149,6 @@ class CommodityController extends Controller
 
         //Handle File upload
         if(isset($validated['cover_image'])){
-            $uploadedFile = $validated['cover_image'];
 
             // Delete Current Cover Image
             $filetodelete = Storage::disk('s3')->path('commodity-images/' . $commodity->cover_image);
@@ -168,22 +158,16 @@ class CommodityController extends Controller
             }
 
             //Get File Name with the Extension
-            $filenameWithExt = $uploadedFile->getClientOriginalName();
+            $filenameWithExt = $validated['cover_image']->getClientOriginalName();
             //Get just File name
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             //Get just Ext
-            $extension = $uploadedFile->getClientOriginalExtension();
+            $extension = $validated['cover_image']->getClientOriginalExtension();
             //Filename to store
             $fileNameToStore = $filename.'_'.Str::random('5').'.'.$extension;
-            // Store the uploaded file in a temporary location
-            $tempFilePath = $uploadedFile->store('temp');
-            // Get the full file path of the stored file
-            $fullFilePath = storage_path('app/' . $tempFilePath);
-            // Create Intervention
-            $cover_image = Image::make($fullFilePath)->resize(1080, 1080)->save();
             //Upload Image
             // $path = $validated['cover_image']->storeAs('featured-images', $fileNameToStore, 'public_uploads');
-            Storage::disk('s3')->putFileAs('commodity-images', new File($fullFilePath), $fileNameToStore, );
+            Storage::disk('s3')->putFileAs('commodity-images', new File($validated['cover_image']), $fileNameToStore, );
 
             $commodity->cover_image = $fileNameToStore;
 

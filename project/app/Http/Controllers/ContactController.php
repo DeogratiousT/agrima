@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Freshbitsweb\Laratables\Laratables;
 
 class ContactController extends Controller

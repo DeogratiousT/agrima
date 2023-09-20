@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en-US">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,91 +9,76 @@
 	<!-- title -->
 	<title>AGRIMA</title>
 
-	<!-- favicon -->
-	{{-- <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png"> --}}
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/all.min.css') }}">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/bootstrap/css/bootstrap.min.css') }}">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/owl.carousel.css') }}">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/magnific-popup.css') }}">
-	<!-- animate css -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/animate.css') }}">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/meanmenu.min.css') }}">
-	<!-- main style -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/main.css') }}">
-	<!-- responsive -->
-	<link rel="stylesheet" href="{{ asset('assets/fruitkha/assets/css/responsive.css') }}">
+	<!-- Stylesheets
+	============================================= -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Zilla+Slab:wght@400;500&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/bootstrap.css') }}" type="text/css" />
+	<link rel="stylesheet" href="{{ asset('assets/canvas/style.css') }}" type="text/css" />
+
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/dark.css') }}" type="text/css" />
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/font-icons.css') }}" type="text/css" />
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/animate.css') }}" type="text/css" />
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/magnific-popup.css') }}" type="text/css" />
+
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/custom.css') }}" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Furniture Demo Specific Theme Stylesheet - #193532 -->
+	<link rel="stylesheet" href="{{ asset('assets/canvas/css/colors.php?color=193532') }}" type="text/css" />
+
+	<!-- Furniture Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="{{ asset('assets/canvas/demos/furniture/furniture.css') }}" type="text/css" /> <!-- Furniture Custom Css -->
+	<link rel="stylesheet" href="{{ asset('assets/canvas/demos/furniture/css/fonts.css') }}" type="text/css" /> <!-- Furniture Custom Fonts -->
+	<!-- / -->
 
     <!-- Page Style Imports -->
     @yield('page-imports')
 
 </head>
-<body>
+
+<body class="stretched">
+
+	<!-- Cart Panel Background
+	============================================= -->
+	<div class="body-overlay"></div>
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Top Bar
+		============================================= -->
+		@include('includes.topbar')
+		<!-- #top-bar end -->
 	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
-	@include('includes.header')
-	<!-- end header -->
-	
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<!-- header -->
+		@include('includes.header')
+		<!-- end header -->
+
+		@yield('content')
+
+		<!-- footer -->
+		@include('includes.footer')
+		<!-- end footer -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="bg-color op-07 h-op-1">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFF" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="48 208 128 128 208 208 48 208" opacity="0.2"></polygon><polygon points="48 208 128 128 208 208 48 208" fill="none" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polygon><polyline points="48 128 128 48 208 128" fill="none" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline></svg>
 	</div>
-	<!-- end search area -->
-
-    @yield('content')
-
-	<!-- footer -->
-	@include('includes.footer')
-	<!-- end footer -->
 	
-	<!-- jquery -->
-	<script src="{{ asset('assets/fruitkha/assets/js/jquery-1.11.3.min.js') }}"></script>
-	<!-- bootstrap -->
-	<script src="{{ asset('assets/fruitkha/assets/bootstrap/js/bootstrap.min.js') }}"></script>
-	<!-- count down -->
-	<script src="{{ asset('assets/fruitkha/assets/js/jquery.countdown.js') }}"></script>
-	<!-- isotope -->
-	<script src="{{ asset('assets/fruitkha/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
-	<!-- waypoints -->
-	<script src="{{ asset('assets/fruitkha/assets/js/waypoints.js') }}"></script>
-	<!-- owl carousel -->
-	<script src="{{ asset('assets/fruitkha/assets/js/owl.carousel.min.js') }}"></script>
-	<!-- magnific popup -->
-	<script src="{{ asset('assets/fruitkha/assets/js/jquery.magnific-popup.min.js') }}"></script>
-	<!-- mean menu -->
-	<script src="{{ asset('assets/fruitkha/assets/js/jquery.meanmenu.min.js') }}"></script>
-	<!-- sticker js -->
-	<script src="{{ asset('assets/fruitkha/assets/js/sticker.js') }}"></script>
-	<!-- main js -->
-	<script src="{{ asset('assets/fruitkha/assets/js/main.js') }}"></script>
+	<!-- JavaScripts
+	============================================= -->
+	<script src="{{ asset('assets/canvas/js/jquery.js') }}"></script>
+	<script src="{{ asset('assets/canvas/js/plugins.min.js') }}"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="{{ asset('assets/canvas/js/functions.js') }}"></script>
 
     @stack('scripts')
 

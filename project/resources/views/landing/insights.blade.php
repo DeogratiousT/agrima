@@ -1,23 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- breadcrumb-section -->
-    <div class="breadcrumb-section breadcrumb-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="breadcrumb-text">
-                        <h1>Blogs</h1>
-                    </div>
-                </div>
+    <!-- Title
+    ============================================= -->
+    <section id="page-title" class="page-title-pattern">
+
+        <div class="container clearfix text-white">
+            <h1 class="text-white">Blogs</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+            </ol>
+        </div>
+
+    </section> <!-- #title end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <p class="text-dark">Coming Soon</p>
+
             </div>
         </div>
-    </div>
-    <!-- end breadcrumb section -->
-
-    <div class="mt-150 mb-150">
-        <div class="container">
-            Insights
-        </div>
-    </div>
+    </section> <!-- #content end -->
 @endsection

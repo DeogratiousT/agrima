@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<h1>Cart</h1>
-					</div>
-				</div>
-			</div>
+    <!-- Title
+	============================================= -->
+	<section id="page-title" class="page-title-pattern">
+
+		<div class="container clearfix text-white">
+			<h1 class="text-white">Shopping Cart</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+			</ol>
 		</div>
-	</div>
-	<!-- end breadcrumb section -->
+
+	</section> <!-- #title end -->
 
 	@if(session('success'))
         <div class="alert alert-success mt-1">
@@ -27,108 +27,103 @@
         </div>
     @endif
 
-	<div class="mt-150 mb-150">
-		<div class="container">
-			<div class="cart-section mt-150 mb-150">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 col-md-12">
-							<div class="cart-table-wrap">
-								<table class="cart-table">
-									<thead class="cart-table-head">
-										<tr class="table-head-row">
-											<th class="product-image">Product Image</th>
-											<th class="product-name">Name</th>
-											<th class="product-price">Price</th>
-											<th class="product-quantity">Quantity</th>
-											<th class="product-total">Total</th>
-											<th class="product-remove"></th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach ($items as $item)
-											<tr class="table-body-row" id="tr-{{ $item['commodity']['slug'] }}">
-												<td class="product-image">
-													<img src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $item['commodity']['cover_image'] }}" alt="">
-												</td>
-												<td class="product-name">
-													{{ $item['commodity']['name'] }}
-												</td>
-												<td class="product-price">
-													{{ $item['commodity']['price'] }}
-												</td>
-												<td class="product-quantity">
-													<form id="form-{{ $item['commodity']['slug'] }}">
-														<input type="number" name="{{ $item['commodity']['slug'] }}" id="{{ $item['commodity']['slug'] }}" value="{{ $item['quantity'] }}" min="1" onchange="updateQuantity({{ $item['commodity'] }} , {{ $item['quantity'] }})">
-													</form>
-												</td>
-												<td class="product-total" id="price-{{ $item['commodity']['slug'] }}">
-													{{ $item['price'] }}
-												</td>
-												<td class="product-remove">
-													<button class="btn btn-link" data-toggle="modal" data-target="#deleteModal{{ $item['commodity']['id'] }}">
-														<i class="fas fa-trash text-danger" style="font-size: 1.5rem;"></i>
-													</button>
-												</td>
-											</tr>
+	<!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
 
-											<!-- Delete Modal -->
-											<div class="modal fade" id="deleteModal{{ $item['commodity']['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">Remove {{ $item['commodity']['name'] }}</h5>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-														</div>
-														<div class="modal-body">
-															<p>
-																Deleting this product removes it from your current cart. <br>
-																Do you still wish to proceed removing this product?
-															</p>
+                <!-- Cart
+				============================================= -->
+				<div id="cart" class="section my-0 pt-0">
+					<div class="container">
+						<div class="container clearfix p-5">
+							{{-- <h3 class="mb-3 mt-0 text-center">Shopping <span data-animate="svg-underline-animated"
+								class="svg-underline nocolor svg-underline-animated animated">Cart</span>
+							</h3> --}}
 
-															<div class="float-right">
-																<button type="button" class="btn btn-danger" onclick="removeItem({{ $item['commodity'] }})">Remove {{ $item['commodity']['name'] }}</button>
-															</div>
-														</div>
-													</div>
+							<div id="success-alert" class="alert alert-dismissible alert-success d-none">
+								<i class="icon-cart-plus"></i> &nbsp; <span id="success-message"></span>
+								<button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-hidden="true"></button>
+							</div>
+
+							<div id="info-alert" class="alert alert-dismissible alert-info d-none">
+								<i class="icon-cart-plus"></i> &nbsp; <span id="info-message"></span>
+								<button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-hidden="true"></button>
+							</div>
+
+							<div id="error-alert" class="alert alert-dismissible alert-danger d-none">
+								<i class="icon-cart-plus"></i> &nbsp; <span id="error-message"></span>
+								<button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-hidden="true"></button>
+							</div>
+
+							<table class="table cart mb-5">
+								<thead>
+									<tr>
+										<th class="cart-product-remove">&nbsp;</th>
+										<th class="cart-product-thumbnail">Cover</th>
+										<th class="cart-product-name">Product</th>
+										<th class="cart-product-price">Unit Price</th>
+										<th class="cart-product-quantity">Quantity</th>
+										<th class="cart-product-subtotal">Subtotal (KES)</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($items as $item)
+										<tr class="cart_item">
+											<td class="cart-product-remove">
+												<a href="#" class="remove" title="Remove this item"><i class="icon-trash2"></i></a>
+											</td>
+					
+											<td class="cart-product-thumbnail">
+												<a href="#"><img width="64" height="64" src="https://agrimastoragefilesbucket.s3.af-south-1.amazonaws.com/commodity-images/{{ $item['commodity']['cover_image'] }}" alt="{{ $item['commodity']['name'] }}"></a>
+											</td>
+					
+											<td class="cart-product-name">
+												<a href="#" id="name">{{ $item['commodity']['name'] }}</a>
+											</td>
+					
+											<td class="cart-product-price">
+												<span id="amount" class="amount">{{ $item['commodity']['price'] }}</span>
+											</td>
+					
+											<td class="cart-product-quantity">
+												<div class="quantity">
+													<input type="button" value="-" class="minus" onclick="updateQuantity(this, 'decrement')">
+													<input type="text" id="quantity" name="quantity" value="{{ $item['quantity'] }}" class="qty">
+													<input type="button" value="+" class="plus" onclick="updateQuantity(this, 'increment')">
 												</div>
-											</div>
-											{{-- End Delete modal --}}
-
-										@endforeach
-										<tr>
-											<td colspan="3"><strong>SUB TOTAL</strong></td>
-											<td id="total-price"><strong>{{ $total }}</strong></td>
-											<td></td>
+											</td>
+					
+											<td class="cart-product-subtotal">
+												<span id="subtotal" class="amount">{{ $item['price'] }}</span>
+											</td>
 										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row my-4">
-						<div class="col-12">
-							<div class="float-left">
-								<a href="{{ route('shop') }}" class="btn btn-link">
-									<i class="fas fa-arrow-left"></i> Continue Shopping
-								</a>
-							</div>
-							<div class="float-right">
-								<div class="float-right">
-									<a href="{{ route('checkout') }}" class="btn btn-primary btn-lg">
-										<i class="fas fa-shopping-cart"></i>
-										Checkout
-									</a>
+									@endforeach
+
+									<tr class="cart_item">
+										<td colspan="5" class="cart-total">
+											<span id="total" class="amount">Total (KES)</span>
+										</td>
+										<td class="cart-product-subtotal">
+											<span id="total-amount" class="amount">{{ $total }}</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="row justify-content-end py-2 col-mb-30">
+								<div class="col-lg-auto pe-lg-0">
+									<a href="{{ route('shop') }}" class="button button-small button-border button-rounded button-dark">Continue Shopping</a>
+									<a href="{{ route('checkout') }}" class="button button-3d mt-2 mt-sm-0 me-0 text-light">Proceed to Checkout</a>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-        </div>		
-    </div>  
+				</div><!-- #cart end -->
+				
+            </div>
+        </div>
+    </section> <!-- #content end --> 
 @endsection
 
 @push('scripts')
