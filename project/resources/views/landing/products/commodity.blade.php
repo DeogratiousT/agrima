@@ -42,7 +42,9 @@
                                         <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                             <div class="flexslider">
                                                 <div class="slider-wrap" data-lightbox="gallery">
-                                                    <div class="slide" data-thumb="{{ env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}"><a href="{{env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}" title="{{ $commodity->name }}" data-lightbox="gallery-item"><img src="{{env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}" alt="{{ $commodity->name }}"></a></div>											
+                                                    <div class="slide" data-thumb="{{ $commodity->cover_image }}">
+                                                        <a href="{{ $commodity->cover_image }}" title="{{ $commodity->name }}" data-lightbox="gallery-item"><img src="{{ $commodity->cover_image }}" alt="{{ $commodity->name }}"></a>
+                                                    </div>											
                                                 </div>
                                             </div>
                                         </div>

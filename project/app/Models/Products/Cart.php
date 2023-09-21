@@ -34,7 +34,7 @@ class Cart
         }
     }
 
-    public function addItem($commodity, $quantity = 1)
+    public function addItem($commodity, $quantity)
     {
         $itemToStore = ['id' => $commodity->id, 'price' => $commodity->price, 'quantity' => 0];
 
@@ -54,8 +54,8 @@ class Cart
         $itemToStore['price'] = $commodity->price * $itemToStore['quantity'];
         $this->items[$commodity->id] = $itemToStore;
         $this->items= serialize($this->items);
-        $this->totalQuantity ++;
-        $this->totalPrice += $commodity->price;
+        $this->totalQuantity += $quantity;
+        $this->totalPrice += ($commodity->price * $quantity);
 
         $this->storeItems();
     }

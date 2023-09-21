@@ -21,13 +21,17 @@ class CartController extends Controller
     }
 
     public function addToCart(Request $request, $slug)
-    {        
+    {
         $commodity = Commodity::where('slug', $slug)->first();
-
+        $quantity = 1;
+        if (isset($request->quantity) && $quantity > 0) {
+            $quantity = $request->quantity;
+        }
+          
         abort_unless($commodity, 403);
 
         $cart = new Cart;
-        $cart->addItem($commodity, $request->quantity);
+        $cart->addItem($commodity, $quantity);
         
         return redirect()->route('commodity',$commodity)->with('success', 'Product added to cart successfully!');
     }

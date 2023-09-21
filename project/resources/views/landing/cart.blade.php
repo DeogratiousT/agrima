@@ -70,9 +70,9 @@
 								</thead>
 								<tbody>
 									@foreach ($items as $item)
-										<tr class="cart_item">
+										<tr id="tr-{{ $item['commodity']['slug'] }}" class="cart_item">
 											<td class="cart-product-remove">
-												<a href="#" class="remove" title="Remove this item"><i class="icon-trash2"></i></a>
+												<a href="#" class="remove" title="Remove this item" data-bs-toggle="modal" data-bs-target="#remove-item-{{ $item['commodity']['slug'] }}"><i class="icon-trash2"></i></a>
 											</td>
 					
 											<td class="cart-product-thumbnail">
@@ -89,16 +89,16 @@
 					
 											<td class="cart-product-quantity">
 												<div class="quantity">
-													<input type="button" value="-" class="minus" onclick="updateQuantity(this, 'decrement')">
-													<input type="text" id="quantity" name="quantity" value="{{ $item['quantity'] }}" class="qty">
-													<input type="button" value="+" class="plus" onclick="updateQuantity(this, 'increment')">
+													<input type="button" value="-" class="minus">
+													<input type="text" id="quantity" name="quantity" value="{{ $item['quantity'] }}" class="qty" onchange="updateQuantity(this, '{{ $item['commodity']['slug'] }}' , '{{ $item['quantity'] }}')">
+													<input type="button" value="+" class="plus">
 												</div>
 											</td>
 					
 											<td class="cart-product-subtotal">
-												<span id="subtotal" class="amount">{{ $item['price'] }}</span>
+												<span id="price-{{ $item['commodity']['slug'] }}" class="amount">{{ $item['price'] }}</span>
 											</td>
-										</tr>
+										</tr>  
 									@endforeach
 
 									<tr class="cart_item">
@@ -106,7 +106,7 @@
 											<span id="total" class="amount">Total (KES)</span>
 										</td>
 										<td class="cart-product-subtotal">
-											<span id="total-amount" class="amount">{{ $total }}</span>
+											<span id="total-price" class="amount">{{ $total }}</span>
 										</td>
 									</tr>
 								</tbody>
@@ -123,24 +123,45 @@
 				
             </div>
         </div>
-    </section> <!-- #content end --> 
+    </section> <!-- #content end -->
+	
+	@foreach ($items as $item)
+		<!-- Remove Modal -->
+		<div class="modal fade" id="remove-item-{{ $item['commodity']['slug'] }}" tabindex="-1" aria-labelledby="{{ $item['commodity']['slug'] }}Label" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="{{ $item['commodity']['slug'] }}Label">{{ $item['commodity']['name'] }}</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-dark">
+						Are You Sure that you want to Remove <strong>{{ $item['commodity']['name'] }}</strong> from Cart?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" onclick="removeItem('{{ $item['commodity']['slug'] }}')">Remove</button>
+					  </div>
+				</div>
+			</div>
+		</div>
+	@endforeach
 @endsection
 
 @push('scripts')
 	<script src="{{ asset('assets/js/app.js') }}"></script> 
 	<script>
-		function updateQuantity(item, currentQuantity){
-			let newQuantity = document.getElementById(item.slug).value;
+		function updateQuantity(obj, slug, currentQuantity) {
+			let newQuantity = obj.value;
 			
 			const requestBody = {
-				slug : item.slug,
+				slug : slug,
 				newQuantity : newQuantity,
 			}
 
 			if (currentQuantity != newQuantity) {
 				axios.post("{{ route('cart.update') }}", requestBody)
 				.then((response) => {
-					if (response.data.itemSlug == item.slug) {
+					if (response.data.itemSlug == slug) {
 						document.getElementById("price-" + response.data.itemSlug).innerHTML = response.data.itemPrice;
 						document.getElementById('total-price').innerHTML = response.data.totalPrice;
 						document.getElementById('header-total-quantity').innerHTML = response.data.totalQuantity;
@@ -153,18 +174,18 @@
 			}
 		}
 
-		function removeItem(item){
+		function removeItem(slug){
 			event.preventDefault();
 
 			const requestBody = {
-				slug : item.slug,
+				slug : slug,
 			}
 
 			axios.post("{{ route('cart.remove') }}", requestBody)
 			.then((response) => {
 				console.log(response.data);
-				if (response.data.itemSlug == item.slug) {
-					$('#deleteModal').modal('toggle');
+				if (response.data.itemSlug == slug) {
+					$(`#remove-item-${slug}`).modal('toggle');
 					document.getElementById("tr-" + response.data.itemSlug).innerHTML = "";
 					document.getElementById("total-price").innerHTML = response.data.totalPrice;
 					document.getElementById('header-total-quantity').innerHTML = response.data.totalQuantity;

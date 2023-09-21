@@ -44,6 +44,7 @@ class ProductController extends Controller
         $commodityExists = $cart->commodityExists($commodity->id);
         $commodity->cartQuantity = $cartQuantity;
         $commodity->exists = $commodityExists;
+        $commodity->cover_image =  env('AWS_URL') . '/' . 'commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl;
         
         return view('landing.products.commodity', [
             'categories' => $categories, 

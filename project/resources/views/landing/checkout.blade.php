@@ -104,8 +104,8 @@
 											</div>
 										</div>
 										<div class="accordion-content">
-											<div class="">
-												<p class="mt-2">
+											<div class="text-dark">
+												<p class="mt-2 text-dark">
 													Before proceeding, ensure that; <br>
 													<br>1. Your phone number registered with M-Pesa is turned on.
 													<br>2. You have enough funds (a <strong> minimum of KES {{ $total }}</strong>) in your M-Pesa.
@@ -116,7 +116,7 @@
 														<div class="form-wrapper">
 															<div class="input-group">
 																<input id="phone-prefix" type="text" name="phone-prefix" value="+254" class="form-control form-control-minimal" placeholder="+254" disabled style="max-width: 15%;">                             
-																<input id="phone" type="number" name="number" class="form-control form-control-minimal" placeholder="7xxxxxxxx" required="" value="795615409">                         
+																<input id="phone" type="number" name="number" class="form-control form-control-minimal" placeholder="7xxxxxxxx" required="" value="">                         
 															</div>
 															
 														</div>
@@ -124,29 +124,8 @@
 													<input type="hidden" name="amountToPay" id="amountToPay" value="{{ $total }}">
 		
 													<div class="col-md-12 mb-3 p-0">
-														<button id="mpesa-button" type="button" class="btn btn-primary" disabled data-toggle="modal" data-target="#staticBackdrop">Pay Now
+														<button id="mpesa-button" type="button" class="btn btn-success" disabled data-bs-toggle="modal" data-bs-target="#mpesaModal">Pay Now
 														</button>
-													</div>
-													<!-- Modal -->
-													<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-														<div class="modal-dialog">
-														<div class="modal-content">
-															<div class="modal-header">
-															<h3 class="modal-title" id="staticBackdropLabel">Confirm Payment</h3>
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-															</button>
-															</div>
-															<div class="modal-body">
-																<p id="stk-r" class="badge badge-info p-2 mb-3"></p>
-																<p>
-																	By clicking Proceed to Pay, <strong> KES {{ $total }}</strong> will   be deducted from your account to KIW. <br> Check your phone and enter your M-Pesa PIN when prompted.
-																</p> 
-																
-																<button type="submit" class="btn btn-primary" id="stkpush">Proceed to Pay</button>
-															</div>                                                
-														</div>
-														</div>
 													</div>
 												</form>
 											</div>
@@ -174,8 +153,8 @@
 											</tbody>
 											<tbody class="checkout-details">
 												<tr>
-													<td>Subtotal</td>
-													<td>{{ $total }}</td>
+													<th>Subtotal</th>
+													<th>{{ $total }}</th>
 												</tr>
 											</tbody>
 										</table>
@@ -268,12 +247,34 @@
 
             </div>
         </div>
-    </section> <!-- #content end --> 
+    </section> <!-- #content end -->
+	
+	<!-- MPESA Modal -->
+	<div class="modal fade" id="mpesaModal" tabindex="-1" aria-labelledby="mpesaModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h3 class="modal-title" id="mpesaModalLabel">Confirm Payment</h3>
+			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			<div class="modal-body text-dark">
+				<p id="stk-r" class="badge bg-info p-2 mb-3"></p>
+				<p class="text-dark">
+					By clicking Proceed to Pay, <strong> KES {{ $total }}</strong> will   be deducted from your account to KIW. <br> Check your phone and enter your M-Pesa PIN when prompted.
+				</p> 
+				
+				<button type="submit" class="btn btn-success" id="stkpush">Proceed to Pay</button>
+			</div>                                                
+		</div>
+		</div>
+	</div>
   
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
 	<script>
 		$(document).ready(function(){
         //set button to disabled onload
