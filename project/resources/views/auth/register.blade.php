@@ -1,137 +1,108 @@
-@extends('dashboard.layouts.full')
+@extends('layouts.app')
 
 @section('title', 'Register')
 
 @section('content')
-    <form class="form w-100" method="post" action="{{ route('register') }}">
-        @csrf
+    <!-- Title
+	============================================= -->
+	<section id="page-title" class="page-title-pattern">
 
-        <!--begin::Heading-->
-        <div class="mb-10 text-center">
-            <!--begin::Title-->
-            <h1 class="text-dark mb-3">Create an Account</h1>
-            <!--end::Title-->
-            <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">Already have an account? 
-            <a href="{{ route('login') }}" class="link-primary fw-bolder">Sign in here</a></div>
-            <!--end::Link-->
-        </div>
-        <!--end::Heading-->
-        {{-- <!--begin::Action-->
-        <button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-        <img alt="Logo" src="/metronic8/demo3/assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Sign in with Google</button>
-        <!--end::Action-->
-        <!--begin::Separator-->
-        <div class="d-flex align-items-center mb-10">
-            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-            <span class="fw-bold text-gray-400 fs-7 mx-2">OR</span>
-            <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-        </div>
-        <!--end::Separator--> --}}
-        <!--begin::Input group-->
-        <div class="row fv-row mb-7">
-            <!--begin::Col-->
-            <div class="col-xl-6">
-                <label class="form-label fw-bolder text-dark fs-6">First Name</label>
-                <input class="form-control form-control-lg form-control-solid @error('first_name') border border-danger @enderror" type="text" placeholder="" name="first_name" autocomplete="off" />
-                @error('first_name')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <!--end::Col-->
-            <!--begin::Col-->
-            <div class="col-xl-6">
-                <label class="form-label fw-bolder text-dark fs-6">Last Name</label>
-                <input class="form-control form-control-lg form-control-solid @error('last_name') border border-danger @enderror" type="text" placeholder="" name="last_name" autocomplete="off" />
-                @error('last_name')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-            </div>
-            <!--end::Col-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-7">
-            <label class="form-label fw-bolder text-dark fs-6">Email</label>
-            <input class="form-control form-control-lg form-control-solid @error('email') border border-danger @enderror" type="email" placeholder="" name="email" autocomplete="off" />
-            @error('email')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="mb-10 fv-row" data-kt-password-meter="true">
-            <!--begin::Wrapper-->
-            <div class="mb-1">
-                <!--begin::Label-->
-                <label class="form-label fw-bolder text-dark fs-6">Password</label>
-                <!--end::Label-->
-                <!--begin::Input wrapper-->
-                <div class="position-relative mb-3">
-                    <input class="form-control form-control-lg form-control-solid @error('password') border border-danger @enderror" type="password" placeholder="" name="password" autocomplete="off" />
-                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
-                        <i class="bi bi-eye-slash fs-2"></i>
-                        <i class="bi bi-eye fs-2 d-none"></i>
-                    </span>
+		<div class="container clearfix text-white">
+			<h1 class="text-white">Register</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Register</li>
+			</ol>
+		</div>
+
+	</section> <!-- #title end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-8 col-lg-6">
+                        <div class="card mb-0">
+                            <div class="card-body" style="padding: 40px;">
+                                <form class="mb-0" method="post" action="{{ route('register') }}">
+                                    @csrf
+        
+                                    <h3 class="mb-4 fs-2"><span data-animate="svg-underline-animated"
+                                        class="svg-underline nocolor svg-underline-animated animated">Create </span> an Account</h3>
+
+                                    @include('dashboard.includes.messages')
+        
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 form-group">
+                                            <label for="first_name">First Name:</label>
+                                            <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" class="form-control @error('first_name') border border-danger @enderror">
+                                            @error('first_name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-6 form-group">
+                                            <label for="last_name">Last Name:</label>
+                                            <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}" class="form-control @error('last_name') border border-danger @enderror">
+                                            @error('last_name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" name="email" value="" class="form-control @error('email') border border-danger @enderror">
+                                            @error('email')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+        
+                                        <div class="col-12 col-md-6 form-group">
+                                            <label for="password">Password:</label>
+                                            <input type="password" id="password" name="password" value="" class="form-control @error('password') border border-danger @enderror">
+                                            @error('password')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 col-md-6 form-group">
+                                            <label for="password_confirmation">Confirm Password:</label>
+                                            <input type="password" id="password_confirmation" name="password_confirmation" value="" class="form-control @error('password_confirmation') border border-danger @enderror">
+                                            @error('password_confirmation')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 mb-2">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input @error('toc') border border-danger @enderror" id="toc" name="toc">
+                                                <label class="form-check-label" for="toc">I agree <a href="{{ route('terms.conds') }}" class="ms-1 link-primary">Terms and conditions</a>.</span></label>
+                                                @error('toc')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-12 form-group">
+                                            <button type="submit" class="button button-3d button-black m-0">Register</button>
+                                        </div>
+                                    </div>
+        
+                                </form>
+
+                                <div class="text-dark mt-4">
+                                    Already have an account? 
+                                    <a href="{{ route('login') }}" class="link-success fw-bolder">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!--end::Input wrapper-->
-                <!--begin::Meter-->
-                <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
-                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
-                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
-                </div>
-                <!--end::Meter-->
+                
             </div>
-            <!--end::Wrapper-->
-            <!--begin::Hint-->
-            <div class="text-muted">Use 8 or more characters with a mix of letters, numbers &amp; symbols.</div>
-            <!--end::Hint-->
-            @error('password')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
         </div>
-        <!--end::Input group=-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-5">
-            <label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
-            <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="password_confirmation" autocomplete="off" />
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <label class="form-check form-check-custom form-check-solid form-check-inline">
-                <input class="form-check-input @error('toc') border border-danger @enderror" type="checkbox" name="toc" value="1"/>
-                <span class="form-check-label fw-bold text-gray-700 fs-6">I Agree 
-                <a href="{{ route('terms.conds') }}" class="ms-1 link-primary">Terms and conditions</a>.</span>
-            </label>
-            @error('toc')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-        <!--end::Input group-->
-        <!--begin::Actions-->
-        <div class="text-center">
-            <button type="submit" class="btn btn-lg btn-primary" id="kt_button">
-                <span class="indicator-label">Submit</span>
-                <span class="indicator-progress">Please wait... 
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-            </button>
-        </div>
-        <!--end::Actions-->
-    </form>
+    </section><!-- #content end -->
 @endsection
-
-@push('scripts')
-    <script>
-        // Element to indecate
-        var button = document.querySelector("#kt_button");
-
-        // Handle button click event
-        button.addEventListener("click", function() {
-            // Activate indicator
-            button.setAttribute("data-kt-indicator", "on");
-        });
-    </script>
-@endpush

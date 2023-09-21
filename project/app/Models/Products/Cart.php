@@ -34,7 +34,7 @@ class Cart
         }
     }
 
-    public function addItem($commodity)
+    public function addItem($commodity, $quantity = 1)
     {
         $itemToStore = ['id' => $commodity->id, 'price' => $commodity->price, 'quantity' => 0];
 
@@ -50,7 +50,7 @@ class Cart
             }
         }
 
-        $itemToStore['quantity'] ++;
+        $itemToStore['quantity'] += $quantity;
         $itemToStore['price'] = $commodity->price * $itemToStore['quantity'];
         $this->items[$commodity->id] = $itemToStore;
         $this->items= serialize($this->items);
@@ -173,14 +173,31 @@ class Cart
 
     public function getCommodityQuantity($commodity)
     {
-        $item = array_filter($this->items, function($item) use($commodity) {
-            return $item['id'] == $commodity;
-        }, ARRAY_FILTER_USE_BOTH);
-
-        if ($item) {
-            return $item[$commodity]['quantity'];
-        }
+        if ($this->items) {
+            $item = array_filter($this->items, function($item) use($commodity) {
+                return $item['id'] == $commodity;
+            }, ARRAY_FILTER_USE_BOTH);
+    
+            if ($item) {
+                return $item[$commodity]['quantity'];
+            }
+        }        
 
         return 0;
+    }
+
+    public function commodityExists($commodity)
+    {
+        if ($this->items) {
+            $item = array_filter($this->items, function($item) use($commodity) {
+                return $item['id'] == $commodity;
+            }, ARRAY_FILTER_USE_BOTH);
+    
+            if ($item) {
+                return true;
+            }
+        }        
+
+        return false;
     }
 }

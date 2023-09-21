@@ -1,93 +1,79 @@
-@extends('dashboard.layouts.full')
+@extends('layouts.app')
 
 @section('title', 'Reset Password')
 
 @section('content')
-    <form class="form w-100" method="post" action="{{ route('password.update') }}">
-        @csrf
+    <!-- Title
+	============================================= -->
+	<section id="page-title" class="page-title-pattern">
 
-        <!--begin::Heading-->
-        <div class="text-center mb-10">
-            <!--begin::Title-->
-            <h1 class="text-dark mb-3">Reset Password</h1>
-            <!--end::Title-->
-            <!-- begin::Status -->
-            @include('dashboard.includes.messages')
-            <!-- end::Status -->
-        </div>
-        <!--begin::Heading-->
-        <!--begin::Input-->
-        <input type="hidden" name="token" value="{{ request()->route('token') }}">
-        <!--end::Input-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <!--begin::Label-->
-            <label class="form-label fs-6 fw-bolder text-dark">Email</label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('email') border border-danger @enderror" type="text" name="email" autocomplete="off" />
-            @error('email')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <!--begin::Wrapper-->
-            <div class="d-flex flex-stack mb-2">
-                <!--begin::Label-->
-                <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-                <!--end::Label-->
+		<div class="container clearfix text-white">
+			<h1 class="text-white">Reset Password</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Reset Password</li>
+			</ol>
+		</div>
+
+	</section> <!-- #title end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-8 col-lg-6">
+                        <div class="card mb-0">
+                            <div class="card-body" style="padding: 40px;">
+                                <form class="mb-0" method="post" action="{{ route('password.update') }}">
+                                    @csrf
+        
+                                    <h3 class="mb-4 fs-2"><span data-animate="svg-underline-animated"
+                                        class="svg-underline nocolor svg-underline-animated animated">Reset </span> Password</h3>
+
+                                    @include('dashboard.includes.messages')
+        
+                                    <div class="row">
+                                        <input type="hidden" name="token" value="{{ request()->route('token') }}">
+
+                                        <div class="col-12 form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" name="email" value="" class="form-control @error('email') border border-danger @enderror">
+                                            @error('email')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+        
+                                        <div class="col-12 form-group">
+                                            <label for="password">Password:</label>
+                                            <input type="password" id="password" name="password" value="" class="form-control @error('password') border border-danger @enderror">
+                                            @error('password')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="col-12 form-group">
+                                            <label for="password_confirmation">Confirm Password:</label>
+                                            <input type="password" id="password_confirmation" name="password_confirmation" value="" class="form-control @error('password_confirmation') border border-danger @enderror">
+                                            @error('password_confirmation')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+        
+                                        <div class="col-12 form-group">
+                                            <button class="button button-3d button-black m-0">Reset Password</button>
+                                        </div>
+                                    </div>
+        
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-            <!--end::Wrapper-->
-            <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('password') border border-danger @enderror" type="password" name="password" autocomplete="off" />
-            @error('password')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <!--end::Input-->
         </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <!--begin::Wrapper-->
-            <div class="d-flex flex-stack mb-2">
-                <!--begin::Label-->
-                <label class="form-label fw-bolder text-dark fs-6 mb-0">Confirm Password</label>
-                <!--end::Label-->
-            </div>
-            <!--end::Wrapper-->
-            <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('password_confirmation') border border-danger @enderror" type="password" name="password_confirmation" autocomplete="off" />
-            @error('password_confirmation')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Actions-->
-        <div class="text-center">
-            <!--begin::Submit button-->
-            <button type="submit" id="kt_button" class="btn btn-lg btn-primary w-100 mb-5">
-                <span class="indicator-label">Continue</span>
-                <span class="indicator-progress">Please wait... 
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-            </button>
-            <!--end::Submit button-->
-        <!--end::Actions-->
-    </form>        
+    </section><!-- #content end -->        
 @endsection
-
-@push('scripts')
-    <script>
-        // Element to indecate
-        var button = document.querySelector("#kt_button");
-
-        // Handle button click event
-        button.addEventListener("click", function() {
-            // Activate indicator
-            button.setAttribute("data-kt-indicator", "on");
-        });
-    </script>
-@endpush

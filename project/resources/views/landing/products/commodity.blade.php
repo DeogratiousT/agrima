@@ -26,6 +26,8 @@
     <div class="content-wrap">
         <div class="container clearfix">
 
+            @include('dashboard.includes.messages')
+
             <div class="row gutter-40 col-mb-80">
                 <div class="postcontent col-lg-9">
                     <div class="single-product">
@@ -40,7 +42,7 @@
                                         <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                             <div class="flexslider">
                                                 <div class="slider-wrap" data-lightbox="gallery">
-                                                    <div class="slide" data-thumb="{{ env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}"><a href="{{env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}" title="Pink Printed Dress - Front View" data-lightbox="gallery-item"><img src="{{env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}" alt="{{ $commodity->name }}"></a></div>											
+                                                    <div class="slide" data-thumb="{{ env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}"><a href="{{env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}" title="{{ $commodity->name }}" data-lightbox="gallery-item"><img src="{{env('AWS_URL') . '/commodity-images/' . $commodity->cover_image ?? $fallbackImageUrl }}" alt="{{ $commodity->name }}"></a></div>											
                                                 </div>
                                             </div>
                                         </div>
@@ -82,17 +84,29 @@
                                     <div class="line"></div>
 
                                     <!-- Product Single - Quantity & Cart Button
-                                            ============================================= -->
-                                    <form class="cart mb-0 d-flex justify-content-between align-items-center" method="post"
-                                        enctype="multipart/form-data">
-                                        <div class="quantity clearfix">
-                                            <input type="button" value="-" class="minus">
-                                            <input type="number" step="1" min="1" name="quantity" value="1" title="Qty"
-                                                class="qty">
-                                            <input type="button" value="+" class="plus">
-                                        </div>
-                                        <button type="submit" class="add-to-cart button m-0">Add to cart</button>
-                                    </form><!-- Product Single - Quantity & Cart Button End -->
+                                    ============================================= -->
+                                    @if ($commodity->exists)
+                                        <form class="cart mb-0 d-flex justify-content-between align-items-center" method="post" enctype="multipart/form-data">
+                                            <div class="quantity clearfix">
+                                                <input type="button" value="-" class="minus">
+                                                <input type="number" step="1" min="1" name="quantity" value="{{ $commodity->cartQuantity }}" title="Qty" class="qty" onchange="updateQuantity(this, '{{ $commodity->slug }}' , '{{ $commodity->cartQuantity }}')">
+                                                <input type="button" value="+" class="plus">
+                                            </div>
+                                        </form>
+                                    @else
+                                        <form class="mb-0 d-flex justify-content-between align-items-center" method="post" action="{{ route('cart.add', $commodity) }}" enctype="multipart/form-data">
+                                            @csrf
+
+                                            <div class="quantity clearfix">
+                                                <input type="button" value="-" class="minus">
+                                                <input type="number" step="1" min="1" name="quantity" value="1" title="Qty"
+                                                    class="qty">
+                                                <input type="button" value="+" class="plus">
+                                            </div>
+                                            <button type="submit" class="add-to-cart button m-0">Add to cart</button>
+                                        </form>
+                                    @endif
+                                    <!-- Product Single - Quantity & Cart Button End -->
 
                                     <div class="line"></div>
 
@@ -201,45 +215,35 @@
         </div>
     </div>
 
-	{{-- <form id="form-{{ $commodity->slug }}">
-		<input type="number" name="{{ $commodity->slug }}" id="{{ $commodity->slug }}"
-			value="{{ $commodity->cartQuantity }}" min="1"
-			onchange="updateQuantity('{{ $commodity->slug }}' , '{{ $commodity->cartQuantity }}')">
-	</form>
-	<a href="{{ route('cart.add', $commodity) }}" class="cart-btn"><i
-			class="fas fa-shopping-cart"></i> Add to Cart</a>
-	<p><strong>Categories: </strong>{{ $commodity->subCategory->category->name }},
-		{{ $commodity->subCategory->name }}</p> --}}
-
 </section>
 @endsection
 
 @push('scripts')
-<script src="{{ asset('assets/js/app.js') }}"></script>
-<script>
-function updateQuantity(item, currentQuantity) {
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        function updateQuantity(obj, slug, currentQuantity) {
 
-    let newQuantity = document.getElementById(slug).value;
+            let newQuantity = obj.value;
 
-    const requestBody = {
-        slug: slug,
-        newQuantity: newQuantity,
-    }
+            const requestBody = {
+                slug: slug,
+                newQuantity: newQuantity,
+            }
 
-    if (currentQuantity != newQuantity) {
-        axios.post("{{ route('cart.update') }}", requestBody)
-            .then((response) => {
-                if (response.data.itemSlug == slug) {
-                    // document.getElementById("price-" + response.data.itemSlug).innerHTML = response.data.itemPrice;
-                    // document.getElementById('total-price').innerHTML = response.data.totalPrice;
-                    document.getElementById('header-total-quantity').innerHTML = response.data.totalQuantity;
+            if (currentQuantity != newQuantity) {
+                axios.post("{{ route('cart.update') }}", requestBody)
+                    .then((response) => {
+                        if (response.data.itemSlug == slug) {
+                            // document.getElementById("price-" + response.data.itemSlug).innerHTML = response.data.itemPrice;
+                            // document.getElementById('total-price').innerHTML = response.data.totalPrice;
+                            document.getElementById('header-total-quantity').innerHTML = response.data.totalQuantity;
 
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
-}
-</script>
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        }
+    </script>
 @endpush

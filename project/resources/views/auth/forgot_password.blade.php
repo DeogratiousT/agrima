@@ -1,59 +1,66 @@
-@extends('dashboard.layouts.full')
+@extends('layouts.app')
 
 @section('title', 'Forgot Password')
 
 @section('content')
-    <form class="form w-100" method="post" action="{{ route('password.email') }}">
-        @csrf
+    <!-- Title
+	============================================= -->
+	<section id="page-title" class="page-title-pattern">
 
-        <!--begin::Heading-->
-        <div class="text-center mb-10">
-            <!--begin::Title-->
-            <h1 class="text-dark mb-3">Forgot Password</h1>
-            <!--end::Title-->
-            <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">Forgot your Password? No problem. <br> Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</div>
-            <!--end::Link-->
-            <!-- begin::Status -->
-            @include('dashboard.includes.messages')
-            <!-- end::Status -->
+		<div class="container clearfix text-white">
+			<h1 class="text-white">Forgot Password</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Forgot Password</li>
+			</ol>
+		</div>
+
+	</section> <!-- #title end -->
+
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-8 col-lg-6">
+                        <div class="card mb-0">
+                            <div class="card-body" style="padding: 40px;">
+                                <form class="mb-0" method="post" action="{{ route('password.email') }}">
+                                    @csrf
+        
+                                    <h3 class="mb-4 fs-2">Password <span data-animate="svg-underline-animated"
+                                        class="svg-underline nocolor svg-underline-animated animated"> Reset</span></h3>
+
+                                    @include('dashboard.includes.messages')
+        
+                                    <div class="row">
+                                        <div class="col-12 form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" name="email" value="" class="form-control @error('email') border border-danger @enderror">
+                                            @error('email')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+        
+                                        <div class="col-12 form-group">
+                                            <button class="button button-3d button-black m-0">Email Password Reset Link</button>
+                                        </div>
+                                    </div>
+        
+                                </form>
+
+                                <div class="text-dark mt-4">
+                                    Back to 
+                                    <a href="{{ route('login') }}" class="link-success fw-bolder">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
-        <!--begin::Heading-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <!--begin::Label-->
-            <label class="form-label fs-6 fw-bolder text-dark">Email</label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('email') border border-danger @enderror" type="text" name="email" autocomplete="off" value="{{ old('email') }}"/>
-            @error('email')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Actions-->
-        <div class="text-center">
-            <!--begin::Submit button-->
-            <button type="submit" class="btn btn-lg btn-primary w-100 mb-5" id="kt_button">
-                <span class="indicator-label">Email Password Reset Link</span>
-                <span class="indicator-progress">Please wait... 
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-            </button>
-        </div>
-        <!--end::Actions-->
-    </form>        
+    </section><!-- #content end -->        
 @endsection
-
-@push('scripts')
-    <script>
-        // Element to indecate
-        var button = document.querySelector("#kt_button");
-
-        // Handle button click event
-        button.addEventListener("click", function() {
-            // Activate indicator
-            button.setAttribute("data-kt-indicator", "on");
-        });
-    </script>
-@endpush

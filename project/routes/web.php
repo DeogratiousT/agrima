@@ -47,7 +47,7 @@ Route::get('help', [HomeOtherController::class, 'help'])->name('help');
 
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('add-to-cart/{commodity}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('update-cart', [CartController::class, 'update'])->name('cart.update');
 Route::post('remove', [CartController::class, 'remove'])->name('cart.remove');
 

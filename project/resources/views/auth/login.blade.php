@@ -1,94 +1,75 @@
-@extends('dashboard.layouts.full')
+@extends('layouts.app')
 
 @section('title', 'Login')
 
 @section('content')
-    <form class="form w-100" method="post" action="{{ route('login') }}">
-        @csrf
+    <!-- Title
+	============================================= -->
+	<section id="page-title" class="page-title-pattern">
 
-        <!--begin::Heading-->
-        <div class="text-center mb-10">
-            <!--begin::Title-->
-            <h1 class="text-dark mb-3">Sign In to Agrima</h1>
-            <!--end::Title-->
-            <!-- begin::Status -->
-            @include('dashboard.includes.messages')
-            <!-- end::Status -->
-            <!--begin::Link-->
-            <div class="text-gray-400 fw-bold fs-4">
-                New Here? 
-                <a href="{{ route('register') }}" class="link-primary fw-bolder">Create an Account</a>
+		<div class="container clearfix text-white">
+			<h1 class="text-white">Login</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Login</li>
+			</ol>
+		</div>
+
+	</section> <!-- #title end -->
+
+	<!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-8 col-lg-6">
+                        <div class="card mb-0">
+                            <div class="card-body" style="padding: 40px;">
+                                <form class="mb-0" method="post" action="{{ route('login') }}">
+                                    @csrf
+        
+                                    <h3 class="mb-4 fs-2"><span data-animate="svg-underline-animated"
+                                        class="svg-underline nocolor svg-underline-animated animated">Login</span> to your Account</h3>
+
+                                    @include('dashboard.includes.messages')
+        
+                                    <div class="row">
+                                        <div class="col-12 form-group">
+                                            <label for="email">Email:</label>
+                                            <input type="email" id="email" name="email" value="" class="form-control @error('email') border border-danger @enderror">
+                                            @error('email')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+        
+                                        <div class="col-12 form-group">
+                                            <label for="password">Password:</label>
+                                            <input type="password" id="password" name="password" value="" class="form-control @error('password') border border-danger @enderror">
+                                            @error('password')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+        
+                                        <div class="col-12 form-group">
+                                            <button class="button button-3d button-black m-0" id="" name="" value="login">Login</button>
+                                            <a href="{{ route('password.request') }}" class="float-end">Forgot Password?</a>
+                                        </div>
+                                    </div>
+        
+                                </form>
+
+                                <div class="text-dark mt-4">
+                                    New Here? 
+                                    <a href="{{ route('register') }}" class="link-success fw-bolder">Create an Account</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-            <!--end::Link-->
         </div>
-        <!--begin::Heading-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <!--begin::Label-->
-            <label class="form-label fs-6 fw-bolder text-dark">Email</label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('email') border border-danger @enderror" type="text" name="email" autocomplete="off" />
-            @error('email')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Input group-->
-        <div class="fv-row mb-10">
-            <!--begin::Wrapper-->
-            <div class="d-flex flex-stack mb-2">
-                <!--begin::Label-->
-                <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
-                <!--end::Label-->
-                <!--begin::Link-->
-                <a href="{{ route('password.request') }}" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-                <!--end::Link-->
-            </div>
-            <!--end::Wrapper-->
-            <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid @error('password') border border-danger @enderror" type="password" name="password" autocomplete="off" />
-            @error('password')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
-            <!--end::Input-->
-        </div>
-        <!--end::Input group-->
-        <!--begin::Actions-->
-        <div class="text-center">
-            <!--begin::Submit button-->
-            <button type="submit" id="kt_button" class="btn btn-lg btn-primary w-100 mb-5">
-                <span class="indicator-label">Continue</span>
-                <span class="indicator-progress">Please wait... 
-                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-            </button>
-            <!--end::Submit button-->
-            {{-- <!--begin::Separator-->
-            <div class="text-center text-muted text-uppercase fw-bolder mb-5">or</div>
-            <!--end::Separator-->
-            <!--begin::Google link-->
-            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-            <img alt="Logo" src="/metronic8/demo3/assets/media/svg/brand-logos/google-icon.svg" class="h-20px me-3" />Continue with Google</a>
-            <!--end::Google link-->
-            <!--begin::Google link-->
-            <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5">
-            <img alt="Logo" src="/metronic8/demo3/assets/media/svg/brand-logos/facebook-4.svg" class="h-20px me-3" />Continue with Facebook</a>
-            <!--end::Google link--> --}}
-        </div>
-        <!--end::Actions-->
-    </form>        
+    </section><!-- #content end -->       
 @endsection
-
-@push('scripts')
-    <script>
-        // Element to indecate
-        var button = document.querySelector("#kt_button");
-
-        // Handle button click event
-        button.addEventListener("click", function() {
-            // Activate indicator
-            button.setAttribute("data-kt-indicator", "on");
-        });
-    </script>
-@endpush

@@ -41,7 +41,9 @@ class ProductController extends Controller
 
         $cart = new Cart;
         $cartQuantity = $cart->getCommodityQuantity($commodity->id);
+        $commodityExists = $cart->commodityExists($commodity->id);
         $commodity->cartQuantity = $cartQuantity;
+        $commodity->exists = $commodityExists;
         
         return view('landing.products.commodity', [
             'categories' => $categories, 

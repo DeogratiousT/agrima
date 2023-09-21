@@ -20,16 +20,16 @@ class CartController extends Controller
         $this->middleware('auth');
     }
 
-    public function addToCart($slug)
+    public function addToCart(Request $request, $slug)
     {        
         $commodity = Commodity::where('slug', $slug)->first();
 
         abort_unless($commodity, 403);
 
         $cart = new Cart;
-        $cart->addItem($commodity);
+        $cart->addItem($commodity, $request->quantity);
         
-        return back()->with('success', 'Product added to cart successfully!');
+        return redirect()->route('commodity',$commodity)->with('success', 'Product added to cart successfully!');
     }
 
     public function update(Request $request)
