@@ -26,6 +26,7 @@ class CreateNewUser implements CreatesNewUsers
         ];
 
         $data = [
+            'role' => ['required', 'string', 'in:farmer,vendor'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'toc' => ['required'],
@@ -41,11 +42,18 @@ class CreateNewUser implements CreatesNewUsers
 
         Validator::make($input, $data, $messages)->validate();
 
+        $role_id = Role::where('slug','buyer')->pluck('id')->first();
+
+        if (isset($input['role']) && $input['role'] == 'farmer') {
+            $role_id = Role::where('slug','seller')->pluck('id')->first();
+        }
+        
+
         return User::create([
             'name' => $input['first_name'] . ' ' . $input['last_name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'role_id' => Role::where('slug','buyer')->pluck('id')->first(),
+            'role_id' => $role_id,
         ]);
     }
 }

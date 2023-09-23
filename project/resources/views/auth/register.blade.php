@@ -36,6 +36,18 @@
                                     @include('dashboard.includes.messages')
         
                                     <div class="row">
+                                        <div class="col-12 form-group">
+                                            <label for="role">Register As:</label>
+                                            <select id="role" name="role" class="form-select @error('role') border border-danger @enderror">
+                                                <option selected disabled>Choose...</option>
+                                                <option value="farmer">Farmer</option>
+                                                <option value="vendor">Vendor</option>
+                                            </select>
+                                            @error('role')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        
                                         <div class="col-12 col-md-6 form-group">
                                             <label for="first_name">First Name:</label>
                                             <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" class="form-control @error('first_name') border border-danger @enderror">

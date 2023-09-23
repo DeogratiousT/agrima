@@ -38,7 +38,16 @@
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{{ route('register') }}">Register</a></li>
                                 @else
-                                    <li><a class="dropdown-item disabled" href="#"><small>{{ auth()->user()->name }}</small></a></li>
+                                    <li><a class="dropdown-item disabled" href="#"><small>
+                                        {{ auth()->user()->name }} :&nbsp;
+                                        @if (auth()->user()->role->name == 'Seller')
+                                            Farmer
+                                        @elseif(auth()->user()->role->name == 'Buyer')
+                                            Vendor
+                                        @else
+                                            Admin    
+                                        @endif
+                                    </small></a></li>
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
 
                                     @if (auth()->user()->inRole(['administrator']))
